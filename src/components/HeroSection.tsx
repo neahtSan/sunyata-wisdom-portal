@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import FallbackImage from '@/components/ui/fallback-image';
 import { useDotButton } from '@/hooks/use-dot-button';
 import { DotButton } from '@/components/ui/embla-dot-button';
 
 const HeroSection = () => {
+  const autoplay = useMemo(() => Autoplay({ delay: 5000 }), []);
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true
-  }, [Autoplay({ delay: 5000 })]);
+  }, [autoplay]);
   
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
