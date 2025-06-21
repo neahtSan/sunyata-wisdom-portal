@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,20 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'sans': ['Sarabun', 'system-ui', 'sans-serif'],
+				'display': ['Kanit', 'system-ui', 'sans-serif'],
+			},
+			fontSize: {
+				'base': '18px', // Larger base font size for elderly users
+				'lg': '20px',
+				'xl': '22px',
+				'2xl': '26px',
+				'3xl': '30px',
+				'4xl': '36px',
+				'5xl': '48px',
+				'6xl': '60px',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

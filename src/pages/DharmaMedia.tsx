@@ -1,0 +1,226 @@
+
+import React, { useState } from 'react';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
+import { Search, Filter, Calendar, User, Tag, Eye } from 'lucide-react';
+
+const DharmaMedia = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedTag, setSelectedTag] = useState('');
+
+  // Sample articles data
+  const articles = [
+    {
+      id: 1,
+      title: "หลักการสมาधิเบื้องต้น สำหรับผู้เริ่มต้น",
+      excerpt: "เรียนรู้หลักการพื้นฐานของการนั่งสมาธิ ตั้งแต่การหายใจอย่างถูกวิธี ไปจนถึงการปล่อยวาง...",
+      coverImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["สมาธิ", "เบื้องต้น"],
+      author: "พระอาจารย์ปัญญานันท์",
+      publishDate: "15 มกราคม 2567",
+      views: 1250
+    },
+    {
+      id: 2,
+      title: "การปฏิบัติธรรมในชีวิตประจำวัน",
+      excerpt: "ธรรมะไม่ใช่เพียงสิ่งที่เราศึกษาในหนังสือ แต่คือสิ่งที่นำมาใช้จริงในชีวิตประจำวัน เรียนรู้วิธีการ...",
+      coverImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["ชีวิตประจำวัน", "การปฏิบัติ"],
+      author: "พระอาจารย์ปัญญานันท์",
+      publishDate: "8 กุมภาพันธ์ 2567",
+      views: 980
+    },
+    {
+      id: 3,
+      title: "ความหมายของการให้ทาน",
+      excerpt: "การให้ทานไม่ใช่เพียงการให้สิ่งของ แต่เป็นการให้จากใจที่บริสุทธิ์ ความเข้าใจที่ถูกต้องเกี่ยวกับ...",
+      coverImage: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["ทาน", "คุณธรรม"],
+      author: "พระอาจารย์ปัญญานันท์",
+      publishDate: "22 มีนาคม 2567",
+      views: 756
+    },
+    {
+      id: 4,
+      title: "การเดินจงกรม วิธีการและประโยชน์",
+      excerpt: "การเดินจงกรมเป็นการปฏิบัติธรรมที่สำคัญไม่แพ้การนั่งสมาธิ เรียนรู้เทคนิคการเดินจงกรมที่ถูกต้อง...",
+      coverImage: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["จงกรม", "การปฏิบัติ"],
+      author: "พระอาจารย์ปัญญานันท์",
+      publishDate: "5 เมษายน 2567",
+      views: 642
+    },
+    {
+      id: 5,
+      title: "ความสำคัญของการรักษาศีล",
+      excerpt: "ศีลเป็นพื้นฐานของการปฏิบัติธรรม การรักษาศีลไม่ใช่การจำกัดตนเอง แต่เป็นการสร้างเสรีภาพที่แท้จริง...",
+      coverImage: "https://images.unsplash.com/photo-1545158181-d602ec04fcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["ศีล", "คุณธรรม"],
+      author: "พระอาจารย์ปัญญานันท์",
+      publishDate: "18 เมษายน 2567",
+      views: 834
+    },
+    {
+      id: 6,
+      title: "การจัดการอารมณ์ด้วยสติ",
+      excerpt: "เมื่อเราเผชิญกับอารมณ์ต่างๆ ไม่ว่าจะเป็นความโกรธ ความเศร้า หรือความดีใจ การมีสติจะช่วยให้เราจัดการ...",
+      coverImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["สติ", "อารมณ์"],
+      author: "พระอาจารย์ปัญญานันท์",
+      publishDate: "2 พฤษภาคม 2567",
+      views: 1156
+    }
+  ];
+
+  // Get unique tags
+  const allTags = [...new Set(articles.flatMap(article => article.tags))];
+
+  // Filter articles based on search and tag
+  const filteredArticles = articles.filter(article => {
+    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesTag = selectedTag === '' || article.tags.includes(selectedTag);
+    return matchesSearch && matchesTag;
+  });
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
+      <Navigation />
+      
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">ธรรมะมีเดีย</h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+              คลังธรรมะและบทความเพื่อการเรียนรู้และปฏิบัติธรรมในชีวิตประจำวัน
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Search and Filter Section */}
+      <div className="py-8 bg-white shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            {/* Search Bar */}
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="ค้นหาบทความ..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+              />
+            </div>
+
+            {/* Tag Filter */}
+            <div className="flex items-center space-x-2">
+              <Filter className="w-5 h-5 text-gray-600" />
+              <select
+                value={selectedTag}
+                onChange={(e) => setSelectedTag(e.target.value)}
+                className="px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+              >
+                <option value="">หมวดหมู่ทั้งหมด</option>
+                {allTags.map(tag => (
+                  <option key={tag} value={tag}>{tag}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Articles Grid */}
+      <div className="py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredArticles.map((article) => (
+              <div
+                key={article.id}
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              >
+                <img
+                  src={article.coverImage}
+                  alt={article.title}
+                  className="w-full h-48 object-cover"
+                />
+                
+                <div className="p-6">
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {article.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full"
+                      >
+                        <Tag className="w-3 h-3 inline mr-1" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
+                    {article.title}
+                  </h3>
+
+                  {/* Excerpt */}
+                  <p className="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                    {article.excerpt}
+                  </p>
+
+                  {/* Article Meta */}
+                  <div className="space-y-2 text-sm text-gray-500 border-t pt-4">
+                    <div className="flex items-center">
+                      <User className="w-4 h-4 mr-2" />
+                      <span>{article.author}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        <span>{article.publishDate}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Eye className="w-4 h-4 mr-1" />
+                        <span>{article.views.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Read More Button */}
+                  <button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200">
+                    อ่านต่อ
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* No Results */}
+          {filteredArticles.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-xl text-gray-600">ไม่พบบทความที่ค้นหา</p>
+              <p className="text-gray-500 mt-2">ลองใช้คำค้นหาอื่น หรือเลือกหมวดหมู่ใหม่</p>
+            </div>
+          )}
+
+          {/* Load More Button */}
+          {filteredArticles.length > 0 && (
+            <div className="text-center mt-12">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-medium transition-colors duration-200">
+                โหลดบทความเพิ่มเติม
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default DharmaMedia;
