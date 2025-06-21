@@ -1,11 +1,13 @@
 
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, X, Calendar } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight, X, Calendar, ExternalLink } from 'lucide-react';
+import FallbackImage from '@/components/ui/fallback-image';
 
 const PhotoGallery = () => {
-  const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null);
+  const navigate = useNavigate();
 
-  // Sample photo data organized by timeline
+  // Sample photo data organized by timeline with activity mapping
   const photoTimeline = [
     {
       year: "2024",
@@ -13,18 +15,21 @@ const PhotoGallery = () => {
       photos: [
         {
           id: 1,
+          activityId: 1, // Maps to activity 1 (ปฏิบัติธรรมประจำสัปดาห์)
           src: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
           caption: "ปฏิบัติธรรมกลุ่มใหม่",
           date: "มกราคม 2024"
         },
         {
           id: 2,
+          activityId: 2, // Maps to activity 2 (อบรมสมาธิเข้มข้น)
           src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
           caption: "งานบุญประจำเดือน",
           date: "กุมภาพันธ์ 2024"
         },
         {
           id: 3,
+          activityId: 3, // Maps to activity 3 (บรรยายธรรมพิเศษ)
           src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
           caption: "การปฏิบัติกลางแจ้ง",
           date: "มีนาคม 2024"
@@ -37,18 +42,21 @@ const PhotoGallery = () => {
       photos: [
         {
           id: 4,
+          activityId: 1,
           src: "https://images.unsplash.com/photo-1545158181-d602ec04fcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
           caption: "พิธีทำบุญใหญ่",
           date: "เมษายน 2023"
         },
         {
           id: 5,
+          activityId: 2,
           src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
           caption: "การเรียนรู้กลุ่มเยาวชน",
           date: "พฤษภาคม 2023"
         },
         {
           id: 6,
+          activityId: 3,
           src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
           caption: "ร่วมปฏิบัติธรรมร่วมกัน",
           date: "มิถุนายน 2023"
@@ -59,30 +67,9 @@ const PhotoGallery = () => {
 
   const allPhotos = photoTimeline.flatMap(timeline => timeline.photos);
 
-  const openPhoto = (photoId: number) => {
-    setSelectedPhoto(photoId);
+  const navigateToActivityGallery = (activityId: number) => {
+    navigate(`/activity/${activityId}`);
   };
-
-  const closePhoto = () => {
-    setSelectedPhoto(null);
-  };
-
-  const navigatePhoto = (direction: 'prev' | 'next') => {
-    if (selectedPhoto === null) return;
-    
-    const currentIndex = allPhotos.findIndex(photo => photo.id === selectedPhoto);
-    let newIndex;
-    
-    if (direction === 'prev') {
-      newIndex = currentIndex > 0 ? currentIndex - 1 : allPhotos.length - 1;
-    } else {
-      newIndex = currentIndex < allPhotos.length - 1 ? currentIndex + 1 : 0;
-    }
-    
-    setSelectedPhoto(allPhotos[newIndex].id);
-  };
-
-  const selectedPhotoData = allPhotos.find(photo => photo.id === selectedPhoto);
 
   return (
     <section className="py-16 bg-gradient-to-br from-green-50 to-blue-50">
@@ -107,75 +94,47 @@ const PhotoGallery = () => {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {timeline.photos.map((photo) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {timeline.photos.map((photo, index) => (
                 <div
                   key={photo.id}
-                  className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                  onClick={() => openPhoto(photo.id)}
+                  className="relative group cursor-pointer overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 opacity-0 animate-fade-in bg-white"
+                  style={{
+                    animationDelay: `${index * 150}ms`,
+                    animationFillMode: 'forwards'
+                  }}
+                  onClick={() => navigateToActivityGallery(photo.activityId)}
                 >
-                  <img
+                  <FallbackImage
                     src={photo.src}
                     alt={photo.caption}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-[240px] sm:h-[260px] object-cover group-hover:scale-110 transition-transform duration-500 ease-out rounded-xl"
+                    loading="lazy"
+                    skeletonClassName="rounded-xl"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-end">
-                    <div className="p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <h4 className="text-lg font-bold mb-1">{photo.caption}</h4>
-                      <p className="text-sm opacity-90">{photo.date}</p>
+                  
+                  {/* Overlay with info and call-to-action */}
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-200 flex items-center justify-center pointer-events-none">
+                    <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-center px-4">
+                      <h4 className="text-lg font-bold mb-2">{photo.caption}</h4>
+                      <p className="text-sm opacity-90 mb-4">{photo.date}</p>
+                      <div className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 mx-auto hover:shadow-lg pointer-events-auto">
+                        <ExternalLink className="w-4 h-4" />
+                        ดูแกลเลอรี่เต็ม
+                      </div>
                     </div>
+                  </div>
+                  
+                  {/* Bottom info bar (always visible) */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 group-hover:opacity-0 transition-opacity duration-300">
+                    <h4 className="text-white text-base font-bold mb-1 truncate">{photo.caption}</h4>
+                    <p className="text-white/90 text-sm">{photo.date}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         ))}
-
-        {/* Lightbox Modal */}
-        {selectedPhoto && selectedPhotoData && (
-          <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4">
-            <div className="relative max-w-4xl max-h-full">
-              {/* Close Button */}
-              <button
-                onClick={closePhoto}
-                className="absolute top-4 right-4 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all duration-200 z-10"
-                aria-label="ปิด"
-              >
-                <X className="w-8 h-8" />
-              </button>
-
-              {/* Navigation Buttons */}
-              <button
-                onClick={() => navigatePhoto('prev')}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-3 rounded-full transition-all duration-200"
-                aria-label="ภาพก่อนหน้า"
-              >
-                <ChevronLeft className="w-8 h-8" />
-              </button>
-
-              <button
-                onClick={() => navigatePhoto('next')}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white p-3 rounded-full transition-all duration-200"
-                aria-label="ภาพถัดไป"
-              >
-                <ChevronRight className="w-8 h-8" />
-              </button>
-
-              {/* Image */}
-              <img
-                src={selectedPhotoData.src}
-                alt={selectedPhotoData.caption}
-                className="max-w-full max-h-[70vh] object-contain mx-auto"
-              />
-
-              {/* Caption */}
-              <div className="text-center text-white mt-4">
-                <h3 className="text-2xl font-bold mb-2">{selectedPhotoData.caption}</h3>
-                <p className="text-lg opacity-90">{selectedPhotoData.date}</p>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
