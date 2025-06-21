@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,7 +17,7 @@ const AdminDharmaManagement = () => {
   const [articles, setArticles] = useState([
     { id: 1, title: 'หลักการสมาธิเบื้องต้น', category: 'สมาธิ', status: 'published', views: 245, date: '2024-01-15' },
     { id: 2, title: 'การปฏิบัติวิปัสสนา', category: 'วิปัสสนา', status: 'draft', views: 0, date: '2024-01-14' },
-    { id: 3, title: 'ศีล สมาธิ ปัญญา', category: 'หลักธรรม', status: 'published', views: 189, views: 189, date: '2024-01-13' },
+    { id: 3, title: 'ศีล สมาธิ ปัญญา', category: 'หลักธรรม', status: 'published', views: 189, date: '2024-01-13' },
   ]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -31,7 +30,7 @@ const AdminDharmaManagement = () => {
     status: 'draft'
   });
 
-  const categories = ['หลักธรรม', 'สมาধิ', 'วิปัสสนา', 'จริยธรรม', 'ประวัติ'];
+  const categories = ['หลักธรรม', 'สมาธิ', 'วิปัสสนา', 'จริยธรรม', 'ประวัติ'];
 
   const filteredArticles = articles.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase());
