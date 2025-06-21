@@ -13,10 +13,12 @@ interface FallbackImageProps {
   skeletonClassName?: string;
 }
 
+const DEFAULT_FALLBACK = "/images/placeholder.png";
+
 const FallbackImage: React.FC<FallbackImageProps> = ({
   src,
   alt,
-  fallbackSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsBGOs2225fFqTfnl5EKlrEUBn5-drby1x3Q&s",
+  fallbackSrc = DEFAULT_FALLBACK,
   className = "",
   loading = "lazy",
   onLoad,
