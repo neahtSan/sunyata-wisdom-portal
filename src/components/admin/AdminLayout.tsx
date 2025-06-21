@@ -12,7 +12,8 @@ import {
   LogOut,
   Menu,
   X,
-  Settings
+  Settings,
+  UserPlus
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -52,7 +53,9 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       icon: BookOpen 
     },
     { 
-      title: 'จัดการกิจกรรม', 
+      title: 'จัดการกิจ
+
+กรรม', 
       path: '/admin/events', 
       icon: Calendar 
     },
@@ -70,6 +73,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       title: 'เกี่ยวกับเรา', 
       path: '/admin/about', 
       icon: Info 
+    },
+    { 
+      title: 'จัดการผู้ดูแล', 
+      path: '/admin/users', 
+      icon: UserPlus 
     },
   ];
 
