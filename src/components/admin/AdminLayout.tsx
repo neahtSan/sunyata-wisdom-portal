@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -53,9 +52,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       icon: BookOpen 
     },
     { 
-      title: 'จัดการกิจ
-
-กรรม', 
+      title: 'จัดการกิจกรรม', 
       path: '/admin/events', 
       icon: Calendar 
     },
