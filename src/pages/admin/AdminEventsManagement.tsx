@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Plus, Edit, Trash2, Calendar, Users } from 'lucide-react';
+import { Plus, Edit, Trash2, Calendar, Users, Images } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const AdminEventsManagement = () => {
@@ -216,15 +216,21 @@ const AdminEventsManagement = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm">
+                        <Link to={`/activity/${event.id}`}>
+                          <Button variant="ghost" size="sm" title="ดูแกลเลอรี่">
+                            <Images className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                        <Button variant="ghost" size="sm" title="ดูรายชื่อผู้เข้าร่วม">
                           <Users className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="ghost" size="sm" title="แก้ไข">
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button 
                           variant="ghost" 
                           size="sm"
+                          title="ลบ"
                           onClick={() => handleDeleteEvent(event.id)}
                         >
                           <Trash2 className="h-4 w-4" />

@@ -18,6 +18,7 @@ import AdminRegistrationManagement from "./pages/admin/AdminRegistrationManageme
 import AdminFeedbackManagement from "./pages/admin/AdminFeedbackManagement";
 import AdminAboutManagement from "./pages/admin/AdminAboutManagement";
 import AdminCreateUser from "./pages/admin/AdminCreateUser";
+import ActivityGallery from "./pages/ActivityGallery";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,9 @@ const App = () => (
           <Route path="/admin/feedback" element={<AdminFeedbackManagement />} />
           <Route path="/admin/about" element={<AdminAboutManagement />} />
           <Route path="/admin/users" element={<AdminCreateUser />} />
+          
+          {/* Activity Gallery Route */}
+          <Route path="/activity/:activityId" element={<ActivityGallery />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
