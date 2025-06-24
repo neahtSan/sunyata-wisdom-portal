@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,8 @@ import {
   Menu,
   X,
   Settings,
-  UserPlus
+  UserPlus,
+  FileText
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -75,6 +77,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       title: 'จัดการผู้ดูแล', 
       path: '/admin/users', 
       icon: UserPlus 
+    },
+    { 
+      title: 'บันทึกกิจกรรม', 
+      path: '/admin/log', 
+      icon: FileText 
     },
   ];
 

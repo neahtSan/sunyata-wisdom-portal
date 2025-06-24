@@ -5,7 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import DharmaMedia from "./pages/DharmaMedia";
+import ArticleList from "./pages/ArticleList";
+import ArticleDetail from "./pages/ArticleDetail";
+import Gallery from "./pages/Gallery";
 import Registration from "./pages/Registration";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
@@ -18,6 +20,7 @@ import AdminRegistrationManagement from "./pages/admin/AdminRegistrationManageme
 import AdminFeedbackManagement from "./pages/admin/AdminFeedbackManagement";
 import AdminAboutManagement from "./pages/admin/AdminAboutManagement";
 import AdminCreateUser from "./pages/admin/AdminCreateUser";
+import AdminLog from "./pages/admin/AdminLog";
 import ActivityGallery from "./pages/ActivityGallery";
 
 const queryClient = new QueryClient();
@@ -30,7 +33,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/dharma" element={<DharmaMedia />} />
+          <Route path="/article" element={<ArticleList />} />
+          <Route path="/article/:id" element={<ArticleDetail />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/about" element={<About />} />
           
@@ -44,6 +49,7 @@ const App = () => (
           <Route path="/admin/feedback" element={<AdminFeedbackManagement />} />
           <Route path="/admin/about" element={<AdminAboutManagement />} />
           <Route path="/admin/users" element={<AdminCreateUser />} />
+          <Route path="/admin/log" element={<AdminLog />} />
           
           {/* Activity Gallery Route */}
           <Route path="/activity/:activityId" element={<ActivityGallery />} />

@@ -8,7 +8,7 @@ const Navigation = () => {
 
   const navItems = [
     { name: 'หน้าแรก', path: '/', icon: Home },
-    { name: 'ธรรมะมีเดีย', path: '/dharma', icon: BookOpen },
+    { name: 'บทความธรรมะ', path: '/article', icon: BookOpen },
     { name: 'ลงทะเบียนปฏิบัติธรรม', path: '/register', icon: Users },
     { name: 'เกี่ยวกับเรา', path: '/about', icon: Info },
   ];
