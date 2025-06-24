@@ -15,7 +15,9 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminHomeManagement from "./pages/admin/AdminHomeManagement";
 import AdminDharmaManagement from "./pages/admin/AdminDharmaManagement";
-import AdminEventsManagement from "./pages/admin/AdminEventsManagement";
+import AdminDharmaForm from "./pages/admin/AdminDharmaForm";
+import AdminActivityManagement from "./pages/admin/AdminActivityManagement";
+import AdminActivityForm from "./pages/admin/AdminActivityForm";
 import AdminRegistrationManagement from "./pages/admin/AdminRegistrationManagement";
 import AdminFeedbackManagement from "./pages/admin/AdminFeedbackManagement";
 import AdminAboutManagement from "./pages/admin/AdminAboutManagement";
@@ -44,7 +46,9 @@ const App = () => (
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/home" element={<AdminHomeManagement />} />
           <Route path="/admin/dharma" element={<AdminDharmaManagement />} />
-          <Route path="/admin/events" element={<AdminEventsManagement />} />
+          <Route path="/admin/dharma/:id" element={<AdminDharmaForm />} />
+          <Route path="/admin/activity" element={<AdminActivityManagement />} />
+          <Route path="/admin/activity/:id" element={<AdminActivityForm />} />
           <Route path="/admin/registrations" element={<AdminRegistrationManagement />} />
           <Route path="/admin/feedback" element={<AdminFeedbackManagement />} />
           <Route path="/admin/about" element={<AdminAboutManagement />} />

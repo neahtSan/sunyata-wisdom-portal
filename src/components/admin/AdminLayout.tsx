@@ -55,7 +55,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     },
     { 
       title: 'จัดการกิจกรรม', 
-      path: '/admin/events', 
+      path: '/admin/activity', 
       icon: Calendar 
     },
     { 
@@ -103,7 +103,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden"
+            className="lg:hidden w-auto"
             onClick={() => setSidebarOpen(false)}
           >
             <X className="h-5 w-5" />
@@ -117,7 +117,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-colors ${
+                className={`flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-colors w-full ${
                   location.pathname === item.path
                     ? 'bg-green-100 text-green-800'
                     : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
@@ -152,7 +152,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
             <Button
               variant="ghost"
               size="sm"
-              className="lg:hidden"
+              className="lg:hidden w-auto"
               onClick={() => setSidebarOpen(true)}
             >
               <Menu className="h-5 w-5" />
@@ -162,7 +162,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               <span className="text-sm text-gray-600">
                 ผู้ดูแลระบบ: admin
               </span>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="w-auto">
                 <Settings className="h-4 w-4 mr-2" />
                 ตั้งค่า
               </Button>

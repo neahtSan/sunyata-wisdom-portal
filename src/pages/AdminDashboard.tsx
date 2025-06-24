@@ -13,7 +13,9 @@ import {
   Info,
   TrendingUp,
   Eye,
-  FileText
+  FileText,
+  Plus,
+  Clock
 } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -27,10 +29,27 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   const dashboardStats = [
-    { title: 'บทความทั้งหมด', value: '24', icon: FileText, color: 'text-blue-600' },
-    { title: 'การลงทะเบียนเดือนนี้', value: '38', icon: Users, color: 'text-green-600' },
-    { title: 'ความคิดเห็นรออนุมัติ', value: '7', icon: MessageSquare, color: 'text-yellow-600' },
-    { title: 'กิจกรรมในเดือนนี้', value: '12', icon: Calendar, color: 'text-purple-600' },
+    { title: 'บทความธรรมะ', value: '24', icon: BookOpen, color: 'text-blue-600', change: '+2 เดือนนี้' },
+    { title: 'กิจกรรมทั้งหมด', value: '18', icon: Calendar, color: 'text-green-600', change: '+3 เดือนนี้' },
+    { title: 'การลงทะเบียนเดือนนี้', value: '38', icon: Users, color: 'text-purple-600', change: '+15 จากเดือนก่อน' },
+    { title: 'ความคิดเห็นรออนุมัติ', value: '7', icon: MessageSquare, color: 'text-yellow-600', change: 'ต้องดำเนินการ' },
+  ];
+
+  const quickShortcuts = [
+    {
+      title: 'เพิ่มบทความธรรมะ',
+      description: 'สร้างบทความธรรมะใหม่',
+      icon: Plus,
+      href: '/admin/dharma/new',
+      color: 'bg-blue-500 hover:bg-blue-600'
+    },
+    {
+      title: 'เพิ่มกิจกรรมใหม่',
+      description: 'สร้างกิจกรรมใหม่',
+      icon: Plus,
+      href: '/admin/activity/new',
+      color: 'bg-green-500 hover:bg-green-600'
+    }
   ];
 
   const quickActions = [
@@ -52,7 +71,7 @@ const AdminDashboard = () => {
       title: 'จัดการกิจกรรม', 
       description: 'เพิ่มกิจกรรมใหม่, อัปเดตปฏิทิน',
       icon: Calendar,
-      href: '/admin/events',
+      href: '/admin/activity',
       color: 'bg-purple-500 hover:bg-purple-600'
     },
     { 
@@ -62,20 +81,14 @@ const AdminDashboard = () => {
       href: '/admin/registrations',
       color: 'bg-orange-500 hover:bg-orange-600'
     },
-    { 
-      title: 'อนุมัติความคิดเห็น', 
-      description: 'ตรวจสอบและอนุมัติความคิดเห็นจากผู้เยี่ยมชม',
-      icon: MessageSquare,
-      href: '/admin/feedback',
-      color: 'bg-yellow-500 hover:bg-yellow-600'
-    },
-    { 
-      title: 'จัดการเกี่ยวกับเรา', 
-      description: 'แก้ไขประวัติวัด, ข้อมูลพระอาจารย์',
-      icon: Info,
-      href: '/admin/about',
-      color: 'bg-indigo-500 hover:bg-indigo-600'
-    },
+  ];
+
+  const recentActions = [
+    { action: 'เพิ่มบทความ "หลักการสมาธิขั้นสูง"', user: 'admin', time: '2 ชั่วโมงที่แล้ว', type: 'create' },
+    { action: 'อนุมัติความคิดเห็น 3 รายการ', user: 'admin', time: '4 ชั่วโมงที่แล้ว', type: 'approve' },
+    { action: 'แก้ไขกิจกรรม "ปฏิบัติธรรมประจำสัปดาห์"', user: 'admin', time: '6 ชั่วโมงที่แล้ว', type: 'edit' },
+    { action: 'อัปโหลดภาพใหม่ 5 รูป', user: 'admin', time: '1 วันที่แล้ว', type: 'upload' },
+    { action: 'สร้างผู้ใช้ใหม่', user: 'admin', time: '2 วันที่แล้ว', type: 'create' },
   ];
 
   return (
@@ -87,27 +100,54 @@ const AdminDashboard = () => {
           <p className="text-gray-600">ระบบจัดการเนื้อหาวัดป่าสุญญตา</p>
         </div>
 
+        {/* Quick Shortcuts */}
+        <div>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">ทางลัด</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {quickShortcuts.map((shortcut, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow cursor-pointer">
+                <CardContent className="p-4">
+                  <Button 
+                    className={`w-full justify-start ${shortcut.color} text-white`}
+                    onClick={() => navigate(shortcut.href)}
+                  >
+                    <shortcut.icon className="h-5 w-5 mr-3" />
+                    <div className="text-left">
+                      <div className="font-medium">{shortcut.title}</div>
+                      <div className="text-xs opacity-90">{shortcut.description}</div>
+                    </div>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {dashboardStats.map((stat, index) => (
-            <Card key={index}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  {stat.title}
-                </CardTitle>
-                <stat.icon className={`h-4 w-4 ${stat.color}`} />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stat.value}</div>
-              </CardContent>
-            </Card>
-          ))}
+        <div>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">สถิติรวม</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {dashboardStats.map((stat, index) => (
+              <Card key={index}>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-600">
+                    {stat.title}
+                  </CardTitle>
+                  <stat.icon className={`h-5 w-5 ${stat.color}`} />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold mb-1">{stat.value}</div>
+                  <div className="text-xs text-gray-500">{stat.change}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
         {/* Quick Actions */}
         <div>
           <h2 className="text-xl font-semibold text-gray-800 mb-4">การจัดการเนื้อหา</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {quickActions.map((action, index) => (
               <Card key={index} className="hover:shadow-md transition-shadow cursor-pointer">
                 <CardHeader>
@@ -137,28 +177,35 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Recent Activity */}
+        {/* Recent Admin Actions */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5" />
-              กิจกรรมล่าสุด
+              <Clock className="h-5 w-5" />
+              กิจกรรมการดูแลล่าสุด
             </CardTitle>
+            <CardDescription>บันทึกการดำเนินการล่าสุดของผู้ดูแลระบบ</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                <span>มีการลงทะเบียนปฏิบัติธรรมใหม่จาก คุณสมชาย</span>
-                <span className="text-gray-500">2 ชั่วโมงที่แล้ว</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                <span>บทความ "หลักการสมาธิเบื้องต้น" มีผู้เข้าชม 45 ครั้ง</span>
-                <span className="text-gray-500">5 ชั่วโมงที่แล้ว</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
-                <span>มีความคิดเห็นใหม่รอการอนุมัติ</span>
-                <span className="text-gray-500">1 วันที่แล้ว</span>
-              </div>
+            <div className="space-y-3">
+              {recentActions.map((action, index) => (
+                <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded border-l-4 border-l-green-500">
+                  <div className="flex-1">
+                    <span className="font-medium text-gray-800">{action.action}</span>
+                    <div className="text-sm text-gray-600">โดย {action.user}</div>
+                  </div>
+                  <span className="text-sm text-gray-500">{action.time}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 text-center">
+              <Button 
+                variant="outline" 
+                className="w-full md:w-auto"
+                onClick={() => navigate('/admin/log')}
+              >
+                ดูบันทึกทั้งหมด
+              </Button>
             </div>
           </CardContent>
         </Card>
