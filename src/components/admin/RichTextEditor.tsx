@@ -68,7 +68,7 @@ const RichTextEditor = ({ value, onChange, placeholder, rows = 12 }: RichTextEdi
         className="rounded-t-none font-mono text-sm"
       />
       <div className="text-xs text-gray-500 p-2">
-        <p>รองรับ Markdown: **ตัวหนา** _ตัวเอียง_ `โค้ด` > คำอ้างอิง - รายการ</p>
+        <p>รองรับ Markdown: **ตัวหนา** _ตัวเอียง_ `โค้ด` {'>'} คำอ้างอิง - รายการ</p>
       </div>
     </div>
   );
