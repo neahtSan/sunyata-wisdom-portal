@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import PreviewModal from '@/components/admin/PreviewModal';
-import HeroImageManager from '@/components/admin/HeroImageManager';
+import EnhancedHeroManager from '@/components/admin/EnhancedHeroManager';
 import TempleIntroManager from '@/components/admin/TempleIntroManager';
 import TestimonialVideoManager from '@/components/admin/TestimonialVideoManager';
 import FullPreviewTab from '@/components/admin/FullPreviewTab';
@@ -16,25 +15,28 @@ const AdminHomeManagement = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  // Mock data for hero images
+  // Enhanced hero images data with proper ordering
   const [heroImages, setHeroImages] = useState([
     {
       id: 1,
       src: "https://images.unsplash.com/photo-1545158181-d602ec04fcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
       alt: "วิหารสงบ",
-      caption: "ความสงบในธรรมชาติ"
+      caption: "ความสงบในธรรมชาติ",
+      order: 0
     },
     {
       id: 2,
       src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
       alt: "สวนสมาธิ",
-      caption: "สถานที่ปฏิบัติธรรม"
+      caption: "สถานที่ปฏิบัติธรรม",
+      order: 1
     },
     {
       id: 3,
       src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
       alt: "บรรยากาศวัด",
-      caption: "บรรยากาศแห่งการเรียนรู้"
+      caption: "บรรยากาศแห่งการเรียนรู้",
+      order: 2
     }
   ]);
 
@@ -95,7 +97,7 @@ const AdminHomeManagement = () => {
           </TabsList>
 
           <TabsContent value="hero">
-            <HeroImageManager
+            <EnhancedHeroManager
               heroImages={heroImages}
               setHeroImages={setHeroImages}
               onPreview={() => handlePreview('hero')}
