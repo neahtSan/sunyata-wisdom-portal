@@ -16,6 +16,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminHomeManagement from "./pages/admin/AdminHomeManagement";
 import AdminDharmaManagement from "./pages/admin/AdminDharmaManagement";
 import AdminDharmaForm from "./pages/admin/AdminDharmaForm";
+import AdminDharmaPreview from "./pages/admin/AdminDharmaPreview";
 import AdminActivityManagement from "./pages/admin/AdminActivityManagement";
 import AdminActivityForm from "./pages/admin/AdminActivityForm";
 import AdminRegistrationManagement from "./pages/admin/AdminRegistrationManagement";
@@ -45,8 +46,9 @@ const App = () => (
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/home" element={<AdminHomeManagement />} />
-          <Route path="/admin/dharma" element={<AdminDharmaManagement />} />
-          <Route path="/admin/dharma/:id" element={<AdminDharmaForm />} />
+          <Route path="/admin/dharma-article" element={<AdminDharmaManagement />} />
+          <Route path="/admin/dharma-article/:id" element={<AdminDharmaForm />} />
+          <Route path="/admin/dharma-article/:id/preview" element={<AdminDharmaPreview />} />
           <Route path="/admin/activity" element={<AdminActivityManagement />} />
           <Route path="/admin/activity/:id" element={<AdminActivityForm />} />
           <Route path="/admin/registrations" element={<AdminRegistrationManagement />} />

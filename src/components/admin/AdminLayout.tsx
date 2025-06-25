@@ -50,7 +50,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     },
     { 
       title: 'จัดการธรรมะมีเดีย', 
-      path: '/admin/dharma', 
+      path: '/admin/dharma-article', 
       icon: BookOpen 
     },
     { 
@@ -118,7 +118,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
                 key={item.path}
                 to={item.path}
                 className={`flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-colors w-full ${
-                  location.pathname === item.path
+                  location.pathname === item.path || location.pathname.startsWith(item.path)
                     ? 'bg-green-100 text-green-800'
                     : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                 }`}

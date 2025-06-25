@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { ArrowLeft, Save, Eye, Upload } from 'lucide-react';
+import { ArrowLeft, Save, Eye, Upload, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const AdminDharmaForm = () => {
@@ -18,6 +18,7 @@ const AdminDharmaForm = () => {
   const { toast } = useToast();
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [article, setArticle] = useState({
     title: '',
     content: '',
@@ -35,7 +36,7 @@ const AdminDharmaForm = () => {
       // Load existing article data
       const mockArticle = {
         title: 'หลักการสมาธิเบื้องต้น',
-        content: 'การปฏิบัติสมาธิเป็นพื้นฐานสำคัญในการพัฒนาจิตใจ...',
+        content: 'การปฏิบัติสมาธิเป็นพื้นฐานสำคัญในการพัฒนาจิตใจ ช่วยให้เกิดความสงบและความใสใน จิตใจ เพื่อพัฒนาปัญญาให้เกิดขึ้น\n\nสมาธิมีหลายระดับ ตั้งแต่การทำให้จิตสงบเบื้องต้น ไปจนถึงการบรรลุฌานต่างๆ การฝึกสมาธิต้องอาศัยความอดทนและการฝึกฝนอย่างต่อเนื่อง\n\nหลักการสำคัญในการปฏิบัติสมาธิ:\n1. การรักษาศีล ให้จิตใจผ่องใส\n2. การควบคุมอินทรีย์ ไม่ให้ฟุ้งซ่าน\n3. การเจริญสติ ระลึกรู้ตัวอยู่เสมอ\n4. การฝึกสมาธิ ทำจิตให้มั่นคง\n\nผลของการปฏิบัติสมาธิที่ถูกต้อง จะทำให้เกิดความสุขใจ ความสงบ และเป็นรากฐานสำคัญในการพัฒนาปัญญาต่อไป',
         writer: 'พระอาจารย์สุเมธ',
         category: 'สมาธิ',
         tags: 'สมาธิ, ปฏิบัติธรรม, พื้นฐาน',
@@ -45,6 +46,26 @@ const AdminDharmaForm = () => {
       setArticle(mockArticle);
     }
   }, [id]);
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!article.title.trim()) {
+      newErrors.title = 'กรุณากรอกหัวข้อบทความ';
+    }
+    if (!article.content.trim()) {
+      newErrors.content = 'กรุณากรอกเนื้อหาบทความ';
+    }
+    if (!article.writer.trim()) {
+      newErrors.writer = 'กรุณากรอกชื่อผู้เขียน';
+    }
+    if (!article.category) {
+      newErrors.category = 'กรุณาเลือกหมวดหมู่';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -56,6 +77,15 @@ const AdminDharmaForm = () => {
   };
 
   const handleSave = async () => {
+    if (!validateForm()) {
+      toast({
+        title: "ข้อมูลไม่ครบถ้วน",
+        description: "กรุณากรอกข้อมูลให้ครบถ้วน",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsLoading(true);
     // Mock save
     setTimeout(() => {
@@ -64,7 +94,7 @@ const AdminDharmaForm = () => {
         description: "บทความได้รับการบันทึกแล้ว",
       });
       setIsLoading(false);
-      navigate('/admin/dharma');
+      navigate('/admin/dharma-article');
     }, 1500);
   };
 
@@ -74,7 +104,7 @@ const AdminDharmaForm = () => {
     <AdminLayout>
       <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" onClick={() => navigate('/admin/dharma')} className="w-auto">
+          <Button variant="ghost" onClick={() => navigate('/admin/dharma-article')} className="w-auto">
             <ArrowLeft className="h-4 w-4 mr-2" />
             กลับ
           </Button>
@@ -97,34 +127,40 @@ const AdminDharmaForm = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="title">หัวข้อบทความ</Label>
+                  <Label htmlFor="title">หัวข้อบทความ *</Label>
                   <Input
                     id="title"
                     value={article.title}
                     onChange={(e) => setArticle({...article, title: e.target.value})}
                     placeholder="กรอกหัวข้อบทความ"
+                    className={errors.title ? 'border-red-500' : ''}
                   />
+                  {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
                 </div>
                 
                 <div>
-                  <Label htmlFor="writer">ผู้เขียน</Label>
+                  <Label htmlFor="writer">ผู้เขียน *</Label>
                   <Input
                     id="writer"
                     value={article.writer}
                     onChange={(e) => setArticle({...article, writer: e.target.value})}
                     placeholder="ชื่อผู้เขียน"
+                    className={errors.writer ? 'border-red-500' : ''}
                   />
+                  {errors.writer && <p className="text-red-500 text-sm mt-1">{errors.writer}</p>}
                 </div>
 
                 <div>
-                  <Label htmlFor="content">เนื้อหาบทความ</Label>
+                  <Label htmlFor="content">เนื้อหาบทความ *</Label>
                   <Textarea
                     id="content"
                     value={article.content}
                     onChange={(e) => setArticle({...article, content: e.target.value})}
                     rows={12}
                     placeholder="กรอกเนื้อหาบทความ"
+                    className={errors.content ? 'border-red-500' : ''}
                   />
+                  {errors.content && <p className="text-red-500 text-sm mt-1">{errors.content}</p>}
                 </div>
 
                 <div>
@@ -148,9 +184,9 @@ const AdminDharmaForm = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="category">หมวดหมู่</Label>
+                  <Label htmlFor="category">หมวดหมู่ *</Label>
                   <Select value={article.category} onValueChange={(value) => setArticle({...article, category: value})}>
-                    <SelectTrigger>
+                    <SelectTrigger className={errors.category ? 'border-red-500' : ''}>
                       <SelectValue placeholder="เลือกหมวดหมู่" />
                     </SelectTrigger>
                     <SelectContent>
@@ -159,6 +195,7 @@ const AdminDharmaForm = () => {
                       ))}
                     </SelectContent>
                   </Select>
+                  {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
                 </div>
 
                 <div>
@@ -203,6 +240,15 @@ const AdminDharmaForm = () => {
                     <Eye className="h-4 w-4 mr-2" />
                     ดูตัวอย่าง
                   </Button>
+
+                  {!isNewArticle && (
+                    <Link to={`/admin/dharma-article/${id}/preview`} target="_blank">
+                      <Button variant="outline" className="w-full">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        ดูหน้าเต็ม
+                      </Button>
+                    </Link>
+                  )}
                   
                   <Button 
                     onClick={handleSave}

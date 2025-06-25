@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Edit, Trash2, Eye, Search, BookOpen } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, Search, BookOpen, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const AdminDharmaManagement = () => {
@@ -53,7 +53,7 @@ const AdminDharmaManagement = () => {
             <h1 className="text-3xl font-bold text-gray-800">จัดการธรรมะมีเดีย</h1>
             <p className="text-gray-600">จัดการบทความและเนื้อหาธรรมะ</p>
           </div>
-          <Link to="/admin/dharma/new">
+          <Link to="/admin/dharma-article/new">
             <Button className="w-full md:w-auto">
               <Plus className="h-4 w-4 mr-2" />
               เพิ่มบทความใหม่
@@ -161,17 +161,20 @@ const AdminDharmaManagement = () => {
                     <TableCell>{article.date}</TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm" className="w-auto">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        <Link to={`/admin/dharma/${article.id}`}>
-                          <Button variant="ghost" size="sm" className="w-auto">
+                        <Link to={`/admin/dharma-article/${article.id}/preview`}>
+                          <Button variant="ghost" size="sm" title="ดูตัวอย่าง" className="w-auto">
+                            <ExternalLink className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                        <Link to={`/admin/dharma-article/${article.id}`}>
+                          <Button variant="ghost" size="sm" title="แก้ไข" className="w-auto">
                             <Edit className="h-4 w-4" />
                           </Button>
                         </Link>
                         <Button 
                           variant="ghost" 
                           size="sm"
+                          title="ลบ"
                           className="w-auto"
                           onClick={() => handleDeleteArticle(article.id)}
                         >
