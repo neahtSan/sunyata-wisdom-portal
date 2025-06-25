@@ -2,449 +2,261 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import EnhancedActivityForm from '@/components/admin/EnhancedActivityForm';
+import ActivityAnalytics from '@/components/admin/ActivityAnalytics';
+import ActivityScheduler from '@/components/admin/ActivityScheduler';
+import PreviewModal from '@/components/admin/PreviewModal';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Save, Eye, Upload, X, Clock, History, Calendar, MapPin, Users } from 'lucide-react';
+import { ArrowLeft, BarChart3, Calendar, Settings } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+
+interface ActivityData {
+  id: number;
+  title: string;
+  description: string;
+  content: string;
+  category: string;
+  date: string;
+  time: string;
+  endTime: string;
+  location: string;
+  maxParticipants: number;
+  currentRegistrations: number;
+  registrationEnabled: boolean;
+  featured: boolean;
+  status: 'draft' | 'published' | 'cancelled';
+  views: number;
+  completedParticipants?: number;
+  noShowParticipants?: number;
+  rating?: number;
+  feedbackCount?: number;
+}
 
 const AdminActivityForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [activity, setActivity] = useState({
-    title: '',
-    description: '',
-    date: '',
-    time: '',
-    maxParticipants: '',
-    location: '',
-    type: '',
-    requirements: '',
-    images: [] as string[]
-  });
+  const isEditing = id !== 'new';
 
-  const activityTypes = ['ปฏิบัติธรรม', 'อบรม', 'บรรยาย', 'งานบุญ', 'กิจกรรมพิเศษ'];
+  const [activity, setActivity] = useState<ActivityData | null>(null);
+  const [previewMode, setPreviewMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('form');
 
+  // Mock data - replace with actual API calls
   useEffect(() => {
-    if (id && id !== 'new') {
-      // Load existing activity data
-      const mockActivity = {
-        title: 'ปฏิบัติธรรมประจำสัปดาห์',
-        description: 'กิจกรรมปฏิบัติธรรมสำหรับผู้ที่สนใจเข้าร่วมการปฏิบัติธรรม พร้อมคำแนะนำจากพระอาจารย์ผู้มีประสบการณ์',
-        date: '2024-03-20',
-        time: '18:00',
-        maxParticipants: '50',
-        location: 'ศาลาหลัก วัดป่าสุญญตา',
-        type: 'ปฏิบัติธรรม',
-        requirements: 'แต่งกายสีขาว, นำขันน้ำมาด้วย, มาก่อนเวลา 15 นาที',
-        images: [
-          'https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-        ]
-      };
-      setActivity(mockActivity);
-    }
-  }, [id]);
+    const loadActivity = async () => {
+      setIsLoading(true);
+      
+      // Simulate API call
+      setTimeout(() => {
+        if (isEditing) {
+          // Mock existing activity data
+          setActivity({
+            id: parseInt(id!),
+            title: 'ปฏิบัติสมาธิเช้า',
+            description: 'การปฏิบัติสมาธิในบรรยากาศเงียบสงบ',
+            content: `# การปฏิบัติสมาธิเช้า
 
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
+เป็นกิจกรรมที่เหมาะสำหรับผู้ที่ต้องการเริ่มต้นวันใหม่ด้วยจิตใจที่สงบ
+
+## รายละเอียดการปฏิบัติ
+
+- **เวลา:** 06:00 - 08:00 น.
+- **สถานที่:** ศาลาการเปรียญ
+- **ผู้นำ:** พระอาจารย์สมชาย
+
+## สิ่งที่ควรเตรียม
+
+- เสื้อผ้าสีขาว
+- เสื่อนั่งสมาธิ (หากมี)
+- ใจที่เปิดกว้างและพร้อมเรียนรู้`,
+            category: 'meditation',
+            date: '2024-01-15',
+            time: '06:00',
+            endTime: '08:00',
+            location: 'ศาลาการเปรียญ',
+            maxParticipants: 30,
+            currentRegistrations: 18,
+            registrationEnabled: true,
+            featured: true,
+            status: 'published',
+            views: 245,
+            completedParticipants: 16,
+            noShowParticipants: 2,
+            rating: 4.8,
+            feedbackCount: 12
+          });
+        } else {
+          // New activity defaults
+          setActivity({
+            id: 0,
+            title: '',
+            description: '',
+            content: '',
+            category: 'meditation',
+            date: '',
+            time: '09:00',
+            endTime: '17:00',
+            location: '',
+            maxParticipants: 30,
+            currentRegistrations: 0,
+            registrationEnabled: true,
+            featured: false,
+            status: 'draft',
+            views: 0
+          });
+        }
+        setIsLoading(false);
+      }, 1000);
+    };
+
+    loadActivity();
+  }, [id, isEditing]);
+
+  const handleSave = async (activityData: Partial<ActivityData>) => {
+    // Simulate API call
+    console.log('Saving activity:', activityData);
     
-    if (!activity.title.trim()) {
-      newErrors.title = 'กรุณากรอกชื่อกิจกรรม';
-    }
-    if (!activity.description.trim()) {
-      newErrors.description = 'กรุณากรอกรายละเอียดกิจกรรม';
-    }
-    if (!activity.date) {
-      newErrors.date = 'กรุณาเลือกวันที่';
-    }
-    if (!activity.time) {
-      newErrors.time = 'กรุณาเลือกเวลา';
-    }
-    if (!activity.location.trim()) {
-      newErrors.location = 'กรุณากรอกสถานที่';
-    }
-    if (!activity.type) {
-      newErrors.type = 'กรุณาเลือกประเภทกิจกรรม';
-    }
-    if (!activity.maxParticipants || parseInt(activity.maxParticipants) <= 0) {
-      newErrors.maxParticipants = 'กรุณากรอกจำนวนผู้เข้าร่วมสูงสุด';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Update local state
+    setActivity(prev => ({ ...prev, ...activityData } as ActivityData));
+    
+    return Promise.resolve();
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      // Mock image upload - in real app, upload to server
-      const newImageUrls = Array.from(files).map(file => URL.createObjectURL(file));
-      setActivity(prev => ({
-        ...prev,
-        images: [...prev.images, ...newImageUrls]
-      }));
-    }
+  const handlePreview = (activityData: Partial<ActivityData>) => {
+    setActivity(prev => ({ ...prev, ...activityData } as ActivityData));
+    setPreviewMode(true);
   };
 
-  const removeImage = (index: number) => {
-    setActivity(prev => ({
-      ...prev,
-      images: prev.images.filter((_, i) => i !== index)
-    }));
+  const handleScheduleChange = (date: string, time: string) => {
+    setActivity(prev => prev ? { ...prev, date, time } : null);
   };
 
-  const handleSave = async () => {
-    if (!validateForm()) {
-      toast({
-        title: "ข้อมูลไม่ครบถ้วน",
-        description: "กรุณากรอกข้อมูลให้ครบถ้วน",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsLoading(true);
-    // Mock save
-    setTimeout(() => {
-      toast({
-        title: "บันทึกกิจกรรมสำเร็จ",
-        description: "กิจกรรมได้รับการบันทึกแล้ว",
-      });
-      setIsLoading(false);
-      navigate('/admin/activity');
-    }, 1500);
+  const handleRecurringChange = (recurring: boolean, pattern?: string) => {
+    console.log('Recurring settings:', { recurring, pattern });
+    // Handle recurring activity logic
   };
 
-  const isNewActivity = id === 'new';
-  const activityDate = new Date(activity.date);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const isUpcoming = activityDate >= today;
-
-  const formatThaiDate = (dateString: string) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    const thaiMonths = [
-      'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-      'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
-    ];
-    return `${date.getDate()} ${thaiMonths[date.getMonth()]} ${date.getFullYear() + 543}`;
-  };
+  if (isLoading || !activity) {
+    return (
+      <AdminLayout>
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg">กำลังโหลด...</div>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" onClick={() => navigate('/admin/activity')} className="w-auto">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            กลับ
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800">
-              {isNewActivity ? 'เพิ่มกิจกรรมใหม่' : 'แก้ไขกิจกรรม'}
-            </h1>
-            <div className="flex items-center gap-2 mt-1">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/admin/activity')}
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              กลับ
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">
+                {isEditing ? 'แก้ไขกิจกรรม' : 'สร้างกิจกรรมใหม่'}
+              </h1>
               <p className="text-gray-600">
-                {isNewActivity ? 'สร้างกิจกรรมใหม่' : 'แก้ไขข้อมูลกิจกรรม'}
+                {activity.title || 'กิจกรรมใหม่'}
               </p>
-              {!isNewActivity && activity.date && (
-                <Badge variant={isUpcoming ? 'default' : 'secondary'} className="ml-2">
-                  {isUpcoming ? (
-                    <>
-                      <Clock className="h-3 w-3 mr-1" />
-                      กิจกรรมที่กำลังมา
-                    </>
-                  ) : (
-                    <>
-                      <History className="h-3 w-3 mr-1" />
-                      แกลเลอรี่กิจกรรม
-                    </>
-                  )}
-                </Badge>
-              )}
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>ข้อมูลกิจกรรม</CardTitle>
-                <CardDescription>กรอกข้อมูลพื้นฐานของกิจกรรม</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label htmlFor="title">ชื่อกิจกรรม *</Label>
-                  <Input
-                    id="title"
-                    value={activity.title}
-                    onChange={(e) => setActivity({...activity, title: e.target.value})}
-                    placeholder="กรอกชื่อกิจกรรม"
-                    className={errors.title ? 'border-red-500' : ''}
-                  />
-                  {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
-                </div>
-                
-                <div>
-                  <Label htmlFor="description">รายละเอียด *</Label>
-                  <Textarea
-                    id="description"
-                    value={activity.description}
-                    onChange={(e) => setActivity({...activity, description: e.target.value})}
-                    rows={4}
-                    placeholder="กรอกรายละเอียดกิจกรรม"
-                    className={errors.description ? 'border-red-500' : ''}
-                  />
-                  {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
-                </div>
+        {/* Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="form" className="flex items-center space-x-2">
+              <Settings className="h-4 w-4" />
+              <span>แก้ไขกิจกรรม</span>
+            </TabsTrigger>
+            {isEditing && (
+              <TabsTrigger value="analytics" className="flex items-center space-x-2">
+                <BarChart3 className="h-4 w-4" />
+                <span>สถิติและข้อมูล</span>
+              </TabsTrigger>
+            )}
+            <TabsTrigger value="schedule" className="flex items-center space-x-2">
+              <Calendar className="h-4 w-4" />
+              <span>กำหนดการ</span>
+            </TabsTrigger>
+          </TabsList>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="date">วันที่ *</Label>
-                    <Input
-                      id="date"
-                      type="date"
-                      value={activity.date}
-                      onChange={(e) => setActivity({...activity, date: e.target.value})}
-                      className={errors.date ? 'border-red-500' : ''}
-                    />
-                    {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="time">เวลา *</Label>
-                    <Input
-                      id="time"
-                      type="time"
-                      value={activity.time}
-                      onChange={(e) => setActivity({...activity, time: e.target.value})}
-                      className={errors.time ? 'border-red-500' : ''}
-                    />
-                    {errors.time && <p className="text-red-500 text-sm mt-1">{errors.time}</p>}
-                  </div>
-                </div>
+          <TabsContent value="form">
+            <EnhancedActivityForm
+              activity={activity}
+              onSave={handleSave}
+              onPreview={handlePreview}
+              isEditing={isEditing}
+            />
+          </TabsContent>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="type">ประเภทกิจกรรม *</Label>
-                    <Select value={activity.type} onValueChange={(value) => setActivity({...activity, type: value})}>
-                      <SelectTrigger className={errors.type ? 'border-red-500' : ''}>
-                        <SelectValue placeholder="เลือกประเภท" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {activityTypes.map(type => (
-                          <SelectItem key={type} value={type}>{type}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="maxParticipants">จำนวนผู้เข้าร่วมสูงสุด *</Label>
-                    <Input
-                      id="maxParticipants"
-                      type="number"
-                      value={activity.maxParticipants}
-                      onChange={(e) => setActivity({...activity, maxParticipants: e.target.value})}
-                      placeholder="50"
-                      className={errors.maxParticipants ? 'border-red-500' : ''}
-                    />
-                    {errors.maxParticipants && <p className="text-red-500 text-sm mt-1">{errors.maxParticipants}</p>}
-                  </div>
-                </div>
+          {isEditing && (
+            <TabsContent value="analytics">
+              <ActivityAnalytics activity={activity} />
+            </TabsContent>
+          )}
 
-                <div>
-                  <Label htmlFor="location">สถานที่ *</Label>
-                  <Input
-                    id="location"
-                    value={activity.location}
-                    onChange={(e) => setActivity({...activity, location: e.target.value})}
-                    placeholder="ศาลาหลัก วัดป่าสุญญตา"
-                    className={errors.location ? 'border-red-500' : ''}
-                  />
-                  {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
-                </div>
-
-                <div>
-                  <Label htmlFor="requirements">ข้อกำหนด/ข้อแนะนำ</Label>
-                  <Textarea
-                    id="requirements"
-                    value={activity.requirements}
-                    onChange={(e) => setActivity({...activity, requirements: e.target.value})}
-                    rows={3}
-                    placeholder="เช่น แต่งกายสีขาว, นำขันน้ำมาด้วย"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div>
-            <Card>
-              <CardHeader>
-                <CardTitle>ภาพกิจกรรม</CardTitle>
-                <CardDescription>
-                  {isUpcoming ? 'อัปโหลดภาพประกอบกิจกรรม' : 'อัปโหลดภาพจากกิจกรรม (แกลเลอรี่)'}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label htmlFor="images">เลือกภาพ</Label>
-                  <Input
-                    id="images"
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="cursor-pointer"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    สามารถเลือกหลายภาพพร้อมกัน
-                  </p>
-                </div>
-
-                {activity.images.length > 0 && (
-                  <div className="space-y-2">
-                    <Label>ภาพที่อัปโหลด ({activity.images.length})</Label>
-                    <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto">
-                      {activity.images.map((image, index) => (
-                        <div key={index} className="relative">
-                          <img
-                            src={image}
-                            alt={`Activity ${index + 1}`}
-                            className="w-full h-20 object-cover rounded"
-                          />
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            className="absolute top-1 right-1 h-6 w-6 p-0"
-                            onClick={() => removeImage(index)}
-                          >
-                            <X className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="flex flex-col gap-2">
-                  <Button 
-                    onClick={() => setIsPreviewOpen(true)}
-                    variant="outline"
-                    className="w-full"
-                  >
-                    <Eye className="h-4 w-4 mr-2" />
-                    ดูตัวอย่าง
-                  </Button>
-                  
-                  <Button 
-                    onClick={handleSave}
-                    disabled={isLoading}
-                    className="w-full"
-                  >
-                    <Save className="h-4 w-4 mr-2" />
-                    {isLoading ? 'กำลังบันทึก...' : 'บันทึกกิจกรรม'}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+          <TabsContent value="schedule">
+            <ActivityScheduler
+              activityDate={activity.date}
+              activityTime={activity.time}
+              onScheduleChange={handleScheduleChange}
+              onRecurringChange={handleRecurringChange}
+            />
+          </TabsContent>
+        </Tabs>
 
         {/* Preview Modal */}
-        <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>ตัวอย่างกิจกรรม</DialogTitle>
-              <DialogDescription>ตัวอย่างการแสดงผลกิจกรรมบนเว็บไซต์</DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <Badge variant={isUpcoming ? 'default' : 'secondary'}>
-                    {activity.type}
-                  </Badge>
-                  {activity.date && (
-                    <Badge variant={isUpcoming ? 'outline' : 'secondary'}>
-                      {isUpcoming ? (
-                        <>
-                          <Clock className="h-3 w-3 mr-1" />
-                          กำลังมาถึง
-                        </>
-                      ) : (
-                        <>
-                          <History className="h-3 w-3 mr-1" />
-                          ผ่านมาแล้ว
-                        </>
-                      )}
-                    </Badge>
-                  )}
+        <PreviewModal
+          isOpen={previewMode}
+          onClose={() => setPreviewMode(false)}
+          onConfirm={() => {
+            toast({
+              title: "บันทึกการเปลี่ยนแปลงสำเร็จ",
+              description: "กิจกรรมได้รับการอัปเดตแล้ว",
+            });
+            setPreviewMode(false);
+          }}
+          title="พรีวิวกิจกรรม"
+        >
+          <div className="space-y-4">
+            <div className="border rounded-lg p-4">
+              <h2 className="text-xl font-bold mb-2">{activity.title}</h2>
+              <p className="text-gray-600 mb-4">{activity.description}</p>
+              
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <strong>วันเวลา:</strong> {activity.date} {activity.time}
                 </div>
-                
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">{activity.title}</h2>
-                <p className="text-gray-600 mb-4">{activity.description}</p>
-                
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div className="flex items-center text-sm">
-                    <Calendar className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{activity.date ? formatThaiDate(activity.date) : 'ไม่ระบุ'}</span>
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{activity.time || 'ไม่ระบุ'}</span>
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <MapPin className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>{activity.location || 'ไม่ระบุ'}</span>
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Users className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>สูงสุด {activity.maxParticipants || 0} คน</span>
-                  </div>
+                <div>
+                  <strong>สถานที่:</strong> {activity.location}
                 </div>
-
-                {activity.requirements && (
-                  <div className="mb-4">
-                    <span className="font-medium">ข้อกำหนด:</span>
-                    <p className="text-gray-600">{activity.requirements}</p>
-                  </div>
-                )}
-
-                {activity.images.length > 0 && (
-                  <div>
-                    <span className="font-medium">ภาพกิจกรรม:</span>
-                    <div className="grid grid-cols-3 gap-2 mt-2">
-                      {activity.images.slice(0, 6).map((image, index) => (
-                        <img
-                          key={index}
-                          src={image}
-                          alt={`Activity ${index + 1}`}
-                          className="w-full h-20 object-cover rounded"
-                        />
-                      ))}
-                      {activity.images.length > 6 && (
-                        <div className="w-full h-20 bg-gray-100 rounded flex items-center justify-center text-sm text-gray-500">
-                          +{activity.images.length - 6} อีก
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
+                <div>
+                  <strong>ผู้เข้าร่วม:</strong> {activity.currentRegistrations}/{activity.maxParticipants} คน
+                </div>
+                <div>
+                  <strong>ประเภท:</strong> {activity.category}
+                </div>
+              </div>
+              
+              <div className="mt-4 prose max-w-none">
+                <div dangerouslySetInnerHTML={{ __html: activity.content.replace(/\n/g, '<br>') }} />
               </div>
             </div>
-          </DialogContent>
-        </Dialog>
+          </div>
+        </PreviewModal>
       </div>
     </AdminLayout>
   );
