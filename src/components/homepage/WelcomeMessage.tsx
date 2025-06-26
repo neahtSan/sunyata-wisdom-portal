@@ -1,11 +1,18 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import HeroSection from '@/components/HeroSection';
 
 const WelcomeMessage = () => {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
+        {/* Hero Section with Carousel */}
+        <div className="mb-12">
+          <HeroSection />
+        </div>
+
+        {/* Welcome Message Card */}
         <Card className="border-0 bg-white/80 backdrop-blur-sm shadow-lg">
           <CardContent className="p-8 sm:p-12">
             <div className="text-center space-y-6">
