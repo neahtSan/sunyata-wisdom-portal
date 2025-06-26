@@ -1,28 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
   const location = useLocation();
-
-  useEffect(() => {
-    // Check if user is logged in
-    const authData = localStorage.getItem('userAuth');
-    if (authData) {
-      try {
-        const userData = JSON.parse(authData);
-        if (userData.isAuthenticated) {
-          setUser(userData);
-        }
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-      }
-    }
-  }, []);
 
   const navLinks = [
     { href: '/', label: 'หน้าแรก' },
@@ -66,20 +50,6 @@ const Navigation = () => {
                 {link.label}
               </Link>
             ))}
-            
-            {/* User Authentication */}
-            {user ? (
-              <Link to="/profile">
-                <Button variant="outline" className="flex items-center space-x-2">
-                  <User className="h-4 w-4" />
-                  <span>{user.firstName}</span>
-                </Button>
-              </Link>
-            ) : (
-              <Link to="/auth/login">
-                <Button>เข้าสู่ระบบ</Button>
-              </Link>
-            )}
           </div>
 
           {/* Mobile menu button */}
@@ -112,22 +82,6 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              
-              {/* Mobile User Authentication */}
-              <div className="pt-4 pb-3 border-t border-gray-200">
-                {user ? (
-                  <Link to="/profile" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full justify-start">
-                      <User className="h-4 w-4 mr-2" />
-                      {user.firstName} {user.lastName}
-                    </Button>
-                  </Link>
-                ) : (
-                  <Link to="/auth/login" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full">เข้าสู่ระบบ</Button>
-                  </Link>
-                )}
-              </div>
             </div>
           </div>
         )}

@@ -1,0 +1,133 @@
+
+import React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Calendar, Clock, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const UpcomingEvents = () => {
+  // Mock events data - in real app, this would come from admin panel
+  const events = [
+    {
+      id: 1,
+      title: 'วันพระ - สวดมนต์เช้า',
+      date: '2024-01-15',
+      time: '06:00',
+      location: 'วิหารใหญ่',
+      participants: 'ทุกท่าน',
+      description: 'พิธีสวดมนต์เช้าและนั่งสมาธิร่วมกัน'
+    },
+    {
+      id: 2,
+      title: 'การเรียนรู้ปฏิบัติธรรมสำหรับผู้เริ่มต้น',
+      date: '2024-01-18',
+      time: '09:00',
+      location: 'ศาลาการเปรียญ',
+      participants: 'ผู้สนใจ',
+      description: 'หลักสูตรเบื้องต้นสำหรับผู้ที่ต้องการเริ่มต้นปฏิบัติธรรม'
+    },
+    {
+      id: 3,
+      title: 'ปฏิบัติธรรมค้างคืน',
+      date: '2024-01-22',
+      time: '17:00',
+      location: 'กุฏิปฏิบัติธรรม',
+      participants: 'จำกัด 20 ท่าน',
+      description: 'โปรแกรมปฏิบัติธรรมค้างคืน 2 วัน 1 คืน'
+    },
+    {
+      id: 4,
+      title: 'วันวิสาขบูชา - พิธีเวียนเทียน',
+      date: '2024-01-25',
+      time: '19:00',
+      location: 'รอบวิหารใหญ่',
+      participants: 'ทุกท่าน',
+      description: 'พิธีเวียนเทียนเนื่องในวันวิสาขบูชา'
+    }
+  ];
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('th-TH', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const formatTime = (timeString: string) => {
+    return `${timeString} น.`;
+  };
+
+  return (
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+            กิจกรรมที่จะมาถึง
+          </h2>
+          <p className="text-lg sm:text-xl text-gray-600">
+            ร่วมเป็นส่วนหนึ่งของกิจกรรมธรรมะในเดือนนี้
+          </p>
+        </div>
+
+        <div className="space-y-6">
+          {events.map((event, index) => (
+            <Card key={event.id} className="border-l-4 border-l-green-500 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <CardContent className="p-6 sm:p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                  <div className="lg:col-span-3">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3">
+                      {event.title}
+                    </h3>
+                    <p className="text-base sm:text-lg text-gray-600 mb-4 leading-relaxed">
+                      {event.description}
+                    </p>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm sm:text-base">
+                      <div className="flex items-center space-x-2 text-gray-700">
+                        <Calendar className="w-5 h-5 text-green-600" />
+                        <span>{formatDate(event.date)}</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-gray-700">
+                        <Clock className="w-5 h-5 text-green-600" />
+                        <span>{formatTime(event.time)}</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-gray-700">
+                        <Users className="w-5 h-5 text-green-600" />
+                        <span>{event.participants}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-3 text-sm sm:text-base text-gray-600">
+                      <strong>สถานที่:</strong> {event.location}
+                    </div>
+                  </div>
+                  
+                  <div className="lg:col-span-1 flex lg:justify-end items-start">
+                    <Link to="/registration">
+                      <Button size="lg" className="w-full lg:w-auto text-base px-6 py-3">
+                        สมัครเข้าร่วม
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link to="/activities">
+            <Button variant="outline" size="lg" className="text-lg px-8 py-4">
+              ดูกิจกรรมทั้งหมด
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default UpcomingEvents;

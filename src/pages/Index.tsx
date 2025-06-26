@@ -1,13 +1,11 @@
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from '../components/Navigation';
-import HeroSection from '../components/HeroSection';
-import TempleIntro from '../components/TempleIntro';
-import TestimonialVideos from '../components/TestimonialVideos';
-import EventsCalendar from '../components/EventsCalendar';
-import PhotoGallery from '../components/PhotoGallery';
-import FeedbackSection from '../components/FeedbackSection';
+import WelcomeMessage from '../components/homepage/WelcomeMessage';
+import BenefitsSection from '../components/homepage/BenefitsSection';
+import NewsSection from '../components/homepage/NewsSection';
+import UpcomingEvents from '../components/homepage/UpcomingEvents';
+import FeaturedGallery from '../components/homepage/FeaturedGallery';
 import Footer from '../components/Footer';
 
 const Index = () => {
@@ -15,25 +13,22 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
       <Navigation />
       
-      {/* Hero Section with Carousel */}
-      <HeroSection />
+      {/* สุญญตาสวัสดี - Welcoming message */}
+      <WelcomeMessage />
       
-      {/* Temple Introduction */}
-      <TempleIntro />
+      {/* มาวัดแล้วได้อะไร? - Benefits section */}
+      <BenefitsSection />
       
-      {/* Testimonial Videos */}
-      <TestimonialVideos />
+      {/* ข่าวประชาสัมพันธ์ - Latest news */}
+      <NewsSection />
       
-      {/* Events Calendar */}
-      <EventsCalendar />
+      {/* กิจกรรมที่จะมาถึง - Upcoming events */}
+      <UpcomingEvents />
       
-      {/* Photo Gallery */}
-      <PhotoGallery />
+      {/* คลังภาพล่าสุด - Featured gallery */}
+      <FeaturedGallery />
       
-      {/* Feedback Section */}
-      <FeedbackSection />
-      
-      {/* Footer */}
+      {/* Footer with shortcuts and contact */}
       <Footer />
     </div>
   );
