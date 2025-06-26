@@ -75,43 +75,47 @@ const FeaturedGallery = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredAlbums.map((album) => (
-              <Card key={album.id} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-                <div className="relative overflow-hidden rounded-t-lg">
-                  <img
-                    src={album.coverImage}
-                    alt={album.title}
-                    className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/placeholder.svg';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                    <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <Link 
+                key={album.id} 
+                to={`/gallery?album=${album.id}`}
+                className="block"
+              >
+                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <img
+                      src={album.coverImage}
+                      alt={album.title}
+                      className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/placeholder.svg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                      <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-sm">
+                      {album.photoCount} ภาพ
+                    </div>
                   </div>
-                  <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-sm">
-                    {album.photoCount} ภาพ
-                  </div>
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2">
-                    {album.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                    {album.description}
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500">
-                      {formatDate(album.date)}
-                    </span>
-                    <Link to={`/gallery?album=${album.id}`}>
-                      <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-700 hover:bg-green-50">
+                  <CardContent className="p-4">
+                    <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2">
+                      {album.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      {album.description}
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">
+                        {formatDate(album.date)}
+                      </span>
+                      <span className="text-green-600 hover:text-green-700 text-sm font-medium">
                         ดูทั้งหมด
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         )}
