@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, Users } from 'lucide-react';
+import { Calendar, Clock, Users, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const UpcomingEvents = () => {
@@ -72,42 +72,71 @@ const UpcomingEvents = () => {
           </p>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           {events.map((event, index) => (
             <Card key={event.id} className="border-l-4 border-l-green-500 shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6 sm:p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                  <div className="lg:col-span-3">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3">
-                      {event.title}
-                    </h3>
-                    <p className="text-base sm:text-lg text-gray-600 mb-4 leading-relaxed">
-                      {event.description}
-                    </p>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm sm:text-base">
-                      <div className="flex items-center space-x-2 text-gray-700">
-                        <Calendar className="w-5 h-5 text-green-600" />
-                        <span>{formatDate(event.date)}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-gray-700">
-                        <Clock className="w-5 h-5 text-green-600" />
-                        <span>{formatTime(event.time)}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-gray-700">
-                        <Users className="w-5 h-5 text-green-600" />
-                        <span>{event.participants}</span>
-                      </div>
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                  <div className="lg:col-span-3 space-y-6">
+                    <div>
+                      <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 leading-tight">
+                        {event.title}
+                      </h3>
+                      <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+                        {event.description}
+                      </p>
                     </div>
                     
-                    <div className="mt-3 text-sm sm:text-base text-gray-600">
-                      <strong>สถานที่:</strong> {event.location}
+                    <div className="bg-gray-50 rounded-lg p-6 space-y-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="flex items-start space-x-3">
+                          <Calendar className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                          <div>
+                            <div className="text-sm text-gray-500 mb-1">วันที่</div>
+                            <div className="text-base sm:text-lg font-medium text-gray-800">
+                              {formatDate(event.date)}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <Clock className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                          <div>
+                            <div className="text-sm text-gray-500 mb-1">เวลา</div>
+                            <div className="text-base sm:text-lg font-medium text-gray-800">
+                              {formatTime(event.time)}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="flex items-start space-x-3">
+                          <MapPin className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                          <div>
+                            <div className="text-sm text-gray-500 mb-1">สถานที่</div>
+                            <div className="text-base sm:text-lg font-medium text-gray-800">
+                              {event.location}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <Users className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+                          <div>
+                            <div className="text-sm text-gray-500 mb-1">ผู้เข้าร่วม</div>
+                            <div className="text-base sm:text-lg font-medium text-gray-800">
+                              {event.participants}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
                   <div className="lg:col-span-1 flex lg:justify-end items-start">
-                    <Link to="/registration">
-                      <Button size="lg" className="w-full lg:w-auto text-base px-6 py-3">
+                    <Link to="/registration" className="w-full lg:w-auto">
+                      <Button size="lg" className="w-full text-lg px-8 py-4 h-auto">
                         สมัครเข้าร่วม
                       </Button>
                     </Link>
