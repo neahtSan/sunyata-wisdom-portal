@@ -68,7 +68,7 @@ const DharmaArticlesSection = () => {
               to={`/dharma/${article.id}`}
               className="block"
             >
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
+              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer">
                 <div className="relative overflow-hidden rounded-t-lg">
                   <img
                     src={article.coverImage}
@@ -82,12 +82,12 @@ const DharmaArticlesSection = () => {
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
                 </div>
                 
-                <CardContent className="p-3 sm:p-4 flex flex-col h-full">
+                <CardContent className="p-3 sm:p-4">
                   <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3 line-clamp-2 group-hover:text-green-600 transition-colors leading-snug">
                     {article.title}
                   </h3>
                   
-                  <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-3 leading-relaxed flex-grow">
+                  <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-3 leading-relaxed">
                     {article.excerpt}
                   </p>
                   
@@ -110,7 +110,7 @@ const DharmaArticlesSection = () => {
                     อ่านต่อ
                   </Button>
                   
-                  <div className="space-y-1 sm:space-y-2 text-xs text-gray-500 border-t pt-2 sm:pt-3 mt-auto">
+                  <div className="space-y-1 sm:space-y-2 text-xs text-gray-500 border-t pt-2 sm:pt-3">
                     <div className="flex items-center">
                       <User className="w-3 h-3 mr-1 flex-shrink-0" />
                       <span className="truncate text-xs">{article.author}</span>

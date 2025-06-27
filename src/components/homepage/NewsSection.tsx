@@ -57,7 +57,7 @@ const NewsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {news.map((item, index) => (
-            <Card key={item.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+            <Card key={item.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardHeader className="pb-3 sm:pb-4">
                 <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500 mb-2">
                   <div className="flex items-center">
@@ -73,11 +73,11 @@ const NewsSection = () => {
                   {item.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 flex flex-col h-full">
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 sm:mb-6 flex-grow">
+              <CardContent className="pt-0">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 sm:mb-6">
                   {item.summary}
                 </p>
-                <Link to={`/dharma/${item.id}`} className="mt-auto">
+                <Link to={`/dharma/${item.id}`}>
                   <Button variant="outline" className="w-full text-sm sm:text-base py-2 sm:py-3">
                     อ่านต่อ
                   </Button>
