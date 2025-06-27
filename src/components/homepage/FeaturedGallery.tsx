@@ -56,60 +56,60 @@ const FeaturedGallery = () => {
   };
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
             คลังภาพล่าสุด
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-4">
             ชมภาพบรรยากาศและกิจกรรมต่างๆ ของวัดป่าสุญญตา
           </p>
         </div>
 
         {featuredAlbums.length === 0 ? (
-          <div className="text-center py-16">
-            <ImageIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-            <p className="text-xl text-gray-600">ยังไม่มีภาพที่แสดง</p>
+          <div className="text-center py-12 sm:py-16">
+            <ImageIcon className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-gray-400 mb-3 sm:mb-4" />
+            <p className="text-lg sm:text-xl text-gray-600">ยังไม่มีภาพที่แสดง</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
             {featuredAlbums.map((album) => (
               <Link 
                 key={album.id} 
                 to={`/gallery?album=${album.id}`}
                 className="block"
               >
-                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
                   <div className="relative overflow-hidden rounded-t-lg">
                     <img
                       src={album.coverImage}
                       alt={album.title}
-                      className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-40 sm:h-48 lg:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/placeholder.svg';
                       }}
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                      <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <Eye className="w-6 h-6 sm:w-8 sm:h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
-                    <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-sm">
+                    <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-xs sm:text-sm">
                       {album.photoCount} ภาพ
                     </div>
                   </div>
-                  <CardContent className="p-4">
-                    <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2">
+                  <CardContent className="p-3 sm:p-4 flex flex-col h-full">
+                    <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 line-clamp-2">
                       {album.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                    <p className="text-xs sm:text-sm text-gray-600 mb-3 line-clamp-2 flex-grow">
                       {album.description}
                     </p>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center mt-auto">
                       <span className="text-xs text-gray-500">
                         {formatDate(album.date)}
                       </span>
-                      <span className="text-green-600 hover:text-green-700 text-sm font-medium">
+                      <span className="text-green-600 hover:text-green-700 text-xs sm:text-sm font-medium">
                         ดูทั้งหมด
                       </span>
                     </div>
@@ -120,9 +120,9 @@ const FeaturedGallery = () => {
           </div>
         )}
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-8 sm:mt-12">
           <Link to="/gallery">
-            <Button size="lg" className="text-lg px-8 py-4">
+            <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4">
               ดูคลังภาพทั้งหมด
             </Button>
           </Link>

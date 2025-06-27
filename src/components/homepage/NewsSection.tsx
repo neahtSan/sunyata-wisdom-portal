@@ -44,39 +44,41 @@ const NewsSection = () => {
   };
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
             ข่าวประชาสัมพันธ์
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-4">
             ติดตามข่าวสารและกิจกรรมล่าสุดของวัด
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {news.map((item, index) => (
-            <Card key={item.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader className="pb-4">
-                <div className="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>{formatDate(item.date)}</span>
-                  <span className="mx-2">•</span>
+            <Card key={item.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+              <CardHeader className="pb-3 sm:pb-4">
+                <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500 mb-2">
+                  <div className="flex items-center">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                    <span>{formatDate(item.date)}</span>
+                  </div>
+                  <span className="hidden sm:inline">•</span>
                   <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
                     {item.category}
                   </span>
                 </div>
-                <CardTitle className="text-lg sm:text-xl font-bold text-gray-800 leading-tight">
+                <CardTitle className="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-tight">
                   {item.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0">
-                <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6">
+              <CardContent className="pt-0 flex flex-col h-full">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 sm:mb-6 flex-grow">
                   {item.summary}
                 </p>
-                <Link to={`/dharma/${item.id}`}>
-                  <Button variant="outline" className="w-full text-base py-3">
+                <Link to={`/dharma/${item.id}`} className="mt-auto">
+                  <Button variant="outline" className="w-full text-sm sm:text-base py-2 sm:py-3">
                     อ่านต่อ
                   </Button>
                 </Link>
@@ -85,9 +87,9 @@ const NewsSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-8 sm:mt-12">
           <Link to="/dharma">
-            <Button size="lg" className="text-lg px-8 py-4">
+            <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4">
               ดูข่าวทั้งหมด
             </Button>
           </Link>

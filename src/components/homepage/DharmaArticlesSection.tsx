@@ -47,33 +47,33 @@ const DharmaArticlesSection = () => {
   ];
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-blue-50">
+    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-blue-50">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <BookOpen className="w-8 h-8 text-green-600 mr-3" />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800">
+        <div className="text-center mb-8 sm:mb-12">
+          <div className="flex items-center justify-center mb-3 sm:mb-4">
+            <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 mr-2 sm:mr-3" />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
               บทความธรรมะล่าสุด
             </h2>
           </div>
-          <p className="text-lg sm:text-xl text-gray-600">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-4">
             ศึกษาธรรมะและแนวทางการปฏิบัติเพื่อชีวิตที่มีความสุข
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
           {latestArticles.map((article) => (
             <Link 
               key={article.id} 
               to={`/dharma/${article.id}`}
               className="block"
             >
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer">
+              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
                 <div className="relative overflow-hidden rounded-t-lg">
                   <img
                     src={article.coverImage}
                     alt={article.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = '/placeholder.svg';
@@ -82,18 +82,18 @@ const DharmaArticlesSection = () => {
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
                 </div>
                 
-                <CardContent className="p-4">
-                  <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-green-600 transition-colors leading-snug">
+                <CardContent className="p-3 sm:p-4 flex flex-col h-full">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3 line-clamp-2 group-hover:text-green-600 transition-colors leading-snug">
                     {article.title}
                   </h3>
                   
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-3 leading-relaxed flex-grow">
                     {article.excerpt}
                   </p>
                   
                   {/* Article Date */}
-                  <div className="flex items-center text-sm text-gray-500 mb-4">
-                    <Calendar className="w-4 h-4 mr-2" />
+                  <div className="flex items-center text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                     <span>{article.publishDate}</span>
                   </div>
                   
@@ -101,7 +101,7 @@ const DharmaArticlesSection = () => {
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="w-full mb-4 border-green-500 text-green-600 hover:bg-green-50"
+                    className="w-full mb-3 sm:mb-4 border-green-500 text-green-600 hover:bg-green-50 text-xs sm:text-sm py-2"
                     onClick={(e) => {
                       e.preventDefault();
                       window.location.href = `/dharma/${article.id}`;
@@ -110,14 +110,14 @@ const DharmaArticlesSection = () => {
                     อ่านต่อ
                   </Button>
                   
-                  <div className="space-y-2 text-xs text-gray-500 border-t pt-3">
+                  <div className="space-y-1 sm:space-y-2 text-xs text-gray-500 border-t pt-2 sm:pt-3 mt-auto">
                     <div className="flex items-center">
                       <User className="w-3 h-3 mr-1 flex-shrink-0" />
-                      <span className="truncate">{article.author}</span>
+                      <span className="truncate text-xs">{article.author}</span>
                     </div>
                     <div className="flex items-center">
                       <Eye className="w-3 h-3 mr-1 flex-shrink-0" />
-                      <span>{article.views.toLocaleString()} การเข้าชม</span>
+                      <span className="text-xs">{article.views.toLocaleString()} การเข้าชม</span>
                     </div>
                   </div>
                 </CardContent>
@@ -126,9 +126,9 @@ const DharmaArticlesSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-8 sm:mt-12">
           <Link to="/dharma">
-            <Button size="lg" className="text-lg px-8 py-4">
+            <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4">
               ดูบทความธรรมะทั้งหมด
             </Button>
           </Link>
