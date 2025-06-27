@@ -3,6 +3,7 @@ import React from 'react';
 import Navigation from '../components/Navigation';
 import WelcomeMessage from '../components/homepage/WelcomeMessage';
 import BenefitsSection from '../components/homepage/BenefitsSection';
+import DharmaArticlesSection from '../components/homepage/DharmaArticlesSection';
 import NewsSection from '../components/homepage/NewsSection';
 import UpcomingEvents from '../components/homepage/UpcomingEvents';
 import FeaturedGallery from '../components/homepage/FeaturedGallery';
@@ -18,6 +19,9 @@ const Index = () => {
       
       {/* มาวัดแล้วได้อะไร? - Benefits section */}
       <BenefitsSection />
+      
+      {/* บทความธรรมะล่าสุด - Latest dharma articles */}
+      <DharmaArticlesSection />
       
       {/* ข่าวประชาสัมพันธ์ - Latest news */}
       <NewsSection />
