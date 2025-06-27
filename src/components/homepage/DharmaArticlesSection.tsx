@@ -91,20 +91,33 @@ const DharmaArticlesSection = () => {
                     {article.excerpt}
                   </p>
                   
+                  {/* Article Date */}
+                  <div className="flex items-center text-sm text-gray-500 mb-4">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    <span>{article.publishDate}</span>
+                  </div>
+                  
+                  {/* Read More Button */}
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full mb-3 border-green-500 text-green-600 hover:bg-green-50"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.href = `/dharma/${article.id}`;
+                    }}
+                  >
+                    อ่านต่อ
+                  </Button>
+                  
                   <div className="space-y-2 text-xs text-gray-500 border-t pt-3 mt-auto">
                     <div className="flex items-center">
                       <User className="w-3 h-3 mr-1 flex-shrink-0" />
                       <span className="truncate">{article.author}</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Calendar className="w-3 h-3 mr-1 flex-shrink-0" />
-                        <span>{article.publishDate}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Eye className="w-3 h-3 mr-1 flex-shrink-0" />
-                        <span>{article.views.toLocaleString()}</span>
-                      </div>
+                    <div className="flex items-center">
+                      <Eye className="w-3 h-3 mr-1 flex-shrink-0" />
+                      <span>{article.views.toLocaleString()} การเข้าชม</span>
                     </div>
                   </div>
                 </CardContent>
