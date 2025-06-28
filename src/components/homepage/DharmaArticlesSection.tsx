@@ -83,7 +83,7 @@ const DharmaArticlesSection = () => {
                 </div>
                 
                 <CardContent className="p-3 sm:p-4 flex flex-col flex-grow">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3 group-hover:text-green-600 transition-colors leading-snug overflow-hidden text-ellipsis line-clamp-2">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3 group-hover:text-green-600 transition-colors leading-snug overflow-hidden text-ellipsis line-clamp-2 h-[2.5rem] sm:h-[3rem]">
                     {article.title}
                   </h3>
                   
