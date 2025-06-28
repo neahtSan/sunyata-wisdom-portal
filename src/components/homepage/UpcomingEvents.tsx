@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Calendar, Clock, Users, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -10,16 +11,16 @@ const UpcomingEvents = () => {
   const events = [
     {
       id: 1,
-      title: 'วันพระ - สวดมนต์เช้า',
+      title: 'วันพระ - สวดมนต์เช้าวันพระ - สวดมนต์เช้าวันพระ - สวดมนต์เช้าวันพระ - สวดมนต์เช้า',
       date: '2024-01-15',
       time: '06:00',
       location: 'วิหารใหญ่',
       participants: 'ทุกท่าน',
-      description: 'พิธีสวดมนต์เช้าและนั่งสมาธิร่วมกัน'
+      description: 'พิธีสวดมนต์เช้าและนั่งสมาธิร่วมกัน พิธีสวดมนต์เช้าและนั่งสมาธิร่วมกันพิธีสวดมนต์เช้าและนั่งสมาธิร่วมกันพิธีสวดมนต์เช้าและนั่งสมาธิร่วมกันพิธีสวดมนต์เช้าและนั่งสมาธิร่วมกันพิธีสวดมนต์เช้าและนั่งสมาธิร่วมกันพิธีสวดมนต์เช้าและนั่งสมาธิร่วมกัน'
     },
     {
       id: 2,
-      title: 'การเรียนรู้ปฏิบัติธรรมสำหรับผู้เริ่มต้น',
+      title: 'การเรียนรู้ปฏิบัติธรรมสำหรับผู้เริ่มต้นวันพระ - สวดมนต์เช้า',
       date: '2024-01-18',
       time: '09:00',
       location: 'ศาลาการเปรียญ',
@@ -61,7 +62,8 @@ const UpcomingEvents = () => {
   };
 
   return (
-    <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-white">
+    <TooltipProvider>
+      <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-white">
       <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
@@ -82,50 +84,61 @@ const UpcomingEvents = () => {
                 index >= 2 ? 'hidden lg:block' : ''
               }`}
             >
-              <CardContent className="p-4 sm:p-6 flex flex-col flex-grow">
-                <div className="mb-4">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 leading-tight line-clamp-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed line-clamp-3 mb-4">
+              <CardHeader className="pb-3 sm:pb-4 flex-shrink-0">
+                <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                  <div className="flex items-center">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                    <span>{formatDate(event.date)}</span>
+                  </div>
+                </div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <CardTitle className="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-6 line-clamp-2 cursor-pointer h-12">
+                      {event.title}
+                    </CardTitle>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs p-2">
+                    <p className="text-sm">{event.title}</p>
+                  </TooltipContent>
+                </Tooltip>
+                <div className="my-2">
+                  <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm font-medium">
+                    กิจกรรม
+                  </span>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0 flex flex-col flex-grow">
+                <div className="flex-grow">
+                  <p className="text-sm sm:text-base text-gray-600 leading-6 mb-4 line-clamp-2">
                     {event.description}
                   </p>
-                </div>
-                
-                <div className="space-y-3 mb-4 flex-grow">
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="w-4 h-4 text-green-600 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <div className="text-sm font-medium text-gray-800 truncate">
-                        {formatDate(event.date)}
+                  
+                  <div className="space-y-3 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <Clock className="w-4 h-4 text-green-600 flex-shrink-0" />
+                      <div className="text-sm text-gray-600">
+                        {formatTime(event.time)}
                       </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Clock className="w-4 h-4 text-green-600 flex-shrink-0" />
-                    <div className="text-sm text-gray-600">
-                      {formatTime(event.time)}
+                    
+                    <div className="flex items-center space-x-2">
+                      <MapPin className="w-4 h-4 text-green-600 flex-shrink-0" />
+                      <div className="text-sm text-gray-600 truncate">
+                        {event.location}
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="w-4 h-4 text-green-600 flex-shrink-0" />
-                    <div className="text-sm text-gray-600 truncate">
-                      {event.location}
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Users className="w-4 h-4 text-green-600 flex-shrink-0" />
-                    <div className="text-sm text-gray-600 truncate">
-                      {event.participants}
+                    
+                    <div className="flex items-center space-x-2">
+                      <Users className="w-4 h-4 text-green-600 flex-shrink-0" />
+                      <div className="text-sm text-gray-600 truncate">
+                        {event.participants}
+                      </div>
                     </div>
                   </div>
                 </div>
                 
                 <Link to="/registration" className="mt-auto">
-                  <Button size="sm" className="w-full text-sm py-2">
+                  <Button variant="outline" className="w-full text-sm py-2">
                     สมัครเข้าร่วม
                   </Button>
                 </Link>
@@ -143,6 +156,7 @@ const UpcomingEvents = () => {
         </div>
       </div>
     </section>
+    </TooltipProvider>
   );
 };
 
