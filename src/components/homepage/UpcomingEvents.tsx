@@ -64,10 +64,10 @@ const UpcomingEvents = () => {
     <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-white">
       <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
             กิจกรรมที่จะมาถึง
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-4">
+          <p className="text-lg sm:text-xl text-gray-600 px-4">
             ร่วมเป็นส่วนหนึ่งของกิจกรรมธรรมะในเดือนนี้
           </p>
         </div>
@@ -79,10 +79,10 @@ const UpcomingEvents = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
                   <div className="lg:col-span-3 space-y-4 sm:space-y-6">
                     <div>
-                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-3 sm:mb-4 leading-tight">
+                      <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 leading-tight">
                         {event.title}
                       </h3>
-                      <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
+                      <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
                         {event.description}
                       </p>
                     </div>
@@ -92,8 +92,8 @@ const UpcomingEvents = () => {
                         <div className="flex items-start space-x-2 sm:space-x-3">
                           <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 mt-1 flex-shrink-0" />
                           <div>
-                            <div className="text-xs sm:text-sm text-gray-500 mb-1">วันที่</div>
-                            <div className="text-sm sm:text-base lg:text-lg font-medium text-gray-800">
+                            <div className="text-sm text-gray-500 mb-1">วันที่</div>
+                            <div className="text-base sm:text-lg font-medium text-gray-800">
                               {formatDate(event.date)}
                             </div>
                           </div>
@@ -102,7 +102,7 @@ const UpcomingEvents = () => {
                         <div className="flex items-start space-x-2 sm:space-x-3">
                           <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 mt-1 flex-shrink-0" />
                           <div>
-                            <div className="text-xs sm:text-sm text-gray-500 mb-1">เวลา</div>
+                            <div className="text-sm text-gray-500 mb-1">เวลา</div>
                             <div className="text-sm sm:text-base lg:text-lg font-medium text-gray-800">
                               {formatTime(event.time)}
                             </div>
@@ -114,7 +114,7 @@ const UpcomingEvents = () => {
                         <div className="flex items-start space-x-2 sm:space-x-3">
                           <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 mt-1 flex-shrink-0" />
                           <div>
-                            <div className="text-xs sm:text-sm text-gray-500 mb-1">สถานที่</div>
+                            <div className="text-sm text-gray-500 mb-1">สถานที่</div>
                             <div className="text-sm sm:text-base lg:text-lg font-medium text-gray-800">
                               {event.location}
                             </div>
@@ -124,7 +124,7 @@ const UpcomingEvents = () => {
                         <div className="flex items-start space-x-2 sm:space-x-3">
                           <Users className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 mt-1 flex-shrink-0" />
                           <div>
-                            <div className="text-xs sm:text-sm text-gray-500 mb-1">ผู้เข้าร่วม</div>
+                            <div className="text-sm text-gray-500 mb-1">ผู้เข้าร่วม</div>
                             <div className="text-sm sm:text-base lg:text-lg font-medium text-gray-800">
                               {event.participants}
                             </div>

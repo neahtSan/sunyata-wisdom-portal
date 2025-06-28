@@ -59,13 +59,13 @@ const NewsSection = () => {
           {news.map((item, index) => (
             <Card key={item.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
               <CardHeader className="pb-3 sm:pb-4 flex-shrink-0">
-                <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500 mb-2">
+                <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-2">
                   <div className="flex items-center">
                     <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                     <span>{formatDate(item.date)}</span>
                   </div>
                   <span className="hidden sm:inline">•</span>
-                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
+                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm font-medium">
                     {item.category}
                   </span>
                 </div>

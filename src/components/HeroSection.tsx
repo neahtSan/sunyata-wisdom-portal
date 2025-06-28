@@ -104,10 +104,10 @@ const HeroSection = () => {
                 {/* Overlay Content */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-white px-4">
-                    <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 drop-shadow-lg">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg">
                       วัดป่าสุญญตา
                     </h1>
-                    <p className="text-sm md:text-lg lg:text-xl mb-4 md:mb-6 drop-shadow-lg">
+                    <p className="text-base sm:text-lg lg:text-xl mb-6 drop-shadow-lg">
                       {image.caption}
                     </p>
                   </div>

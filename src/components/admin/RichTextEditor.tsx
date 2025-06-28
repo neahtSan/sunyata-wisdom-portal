@@ -65,9 +65,9 @@ const RichTextEditor = ({ value, onChange, placeholder, rows = 12 }: RichTextEdi
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        className="rounded-t-none font-mono text-sm"
+        className="rounded-t-none font-mono text-base"
       />
-      <div className="text-xs text-gray-500 p-2">
+      <div className="text-sm text-gray-500 p-2">
         <p>รองรับ Markdown: **ตัวหนา** _ตัวเอียง_ `โค้ด` {'>'} คำอ้างอิง - รายการ</p>
       </div>
     </div>

@@ -14,11 +14,11 @@ const Footer = () => {
                 <span className="text-white font-bold text-xl">วัด</span>
               </div>
               <div>
-                <h3 className="text-2xl font-bold">วัดป่าสุญญตา</h3>
-                <p className="text-gray-400">ความสงบในธรรมชาติ</p>
+                <h3 className="text-xl sm:text-2xl font-bold">วัดป่าสุญญตา</h3>
+                <p className="text-gray-400 text-base sm:text-lg">ความสงบในธรรมชาติ</p>
               </div>
             </div>
-            <p className="text-gray-300 text-lg leading-relaxed">
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
               วัดป่าสุญญตาเป็นสถานที่ศักดิ์สิทธิ์สำหรับการปฏิบัติธรรมและหาความสงบใจ 
               ท่ามกลางธรรมชาติที่ร่มรื่น
             </p>

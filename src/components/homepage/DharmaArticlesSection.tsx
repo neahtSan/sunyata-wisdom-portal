@@ -49,14 +49,14 @@ const DharmaArticlesSection = () => {
   return (
     <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-gradient-to-b from-green-50 to-blue-50">
       <div className="w-full max-w-7xl mx-auto">
-        <div className="text-center mb-6 sm:mb-8 lg:mb-12">
-          <div className="flex items-center justify-center mb-3 sm:mb-4">
-            <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 mr-2 sm:mr-3" />
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
+        <div className="text-center mb-8 sm:mb-12">
+          <div className="flex items-center justify-center mb-4">
+            <BookOpen className="w-8 h-8 text-green-600 mr-3" />
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800">
               บทความธรรมะล่าสุด
             </h2>
           </div>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-2">
+          <p className="text-lg sm:text-xl text-gray-600 px-2">
             ศึกษาธรรมะและแนวทางการปฏิบัติเพื่อชีวิตที่มีความสุข
           </p>
         </div>
@@ -83,16 +83,16 @@ const DharmaArticlesSection = () => {
                 </div>
                 
                 <CardContent className="p-3 sm:p-4 flex flex-col flex-grow">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3 group-hover:text-green-600 transition-colors leading-snug overflow-hidden text-ellipsis line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 group-hover:text-green-600 transition-colors leading-snug overflow-hidden text-ellipsis line-clamp-2 min-h-[3rem]">
                     {article.title}
                   </h3>
                   
-                  <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 leading-relaxed flex-grow overflow-hidden text-ellipsis line-clamp-3">
+                  <p className="text-sm sm:text-base text-gray-600 mb-4 leading-relaxed flex-grow overflow-hidden text-ellipsis line-clamp-3">
                     {article.excerpt}
                   </p>
                   
                   {/* Article Date */}
-                  <div className="flex items-center text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
+                  <div className="flex items-center text-sm text-gray-500 mb-4">
                     <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
                     <span className="truncate">{article.publishDate}</span>
                   </div>
@@ -101,7 +101,7 @@ const DharmaArticlesSection = () => {
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="w-full mb-3 sm:mb-4 border-green-500 text-green-600 hover:bg-green-50 text-xs sm:text-sm py-2"
+                    className="w-full mb-4 border-green-500 text-green-600 hover:bg-green-50 text-sm py-2"
                     onClick={(e) => {
                       e.preventDefault();
                       window.location.href = `/dharma/${article.id}`;
@@ -110,14 +110,14 @@ const DharmaArticlesSection = () => {
                     อ่านต่อ
                   </Button>
                   
-                  <div className="space-y-1 sm:space-y-2 text-xs text-gray-500 border-t pt-2 sm:pt-3 mt-auto">
+                  <div className="space-y-2 text-sm text-gray-500 border-t pt-3 mt-auto">
                     <div className="flex items-center">
-                      <User className="w-3 h-3 mr-1 flex-shrink-0" />
-                      <span className="truncate text-xs">{article.author}</span>
+                      <User className="w-4 h-4 mr-1 flex-shrink-0" />
+                      <span className="truncate text-sm">{article.author}</span>
                     </div>
                     <div className="flex items-center">
-                      <Eye className="w-3 h-3 mr-1 flex-shrink-0" />
-                      <span className="text-xs">{article.views.toLocaleString()} การเข้าชม</span>
+                      <Eye className="w-4 h-4 mr-1 flex-shrink-0" />
+                      <span className="text-sm">{article.views.toLocaleString()} การเข้าชม</span>
                     </div>
                   </div>
                 </CardContent>

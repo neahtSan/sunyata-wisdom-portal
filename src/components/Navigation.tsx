@@ -31,7 +31,7 @@ const Navigation = () => {
               <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold">วัด</span>
               </div>
-              <span className="text-xl font-bold text-gray-800">วัดป่าสุญญตา</span>
+              <span className="text-xl sm:text-2xl font-bold text-gray-800">วัดป่าสุญญตา</span>
             </Link>
           </div>
 
@@ -41,7 +41,7 @@ const Navigation = () => {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-3 py-2 rounded-md text-base font-medium transition-colors ${
                   isActive(link.href)
                     ? 'text-green-600 bg-green-50'
                     : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
@@ -72,7 +72,7 @@ const Navigation = () => {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  className={`block px-3 py-2 rounded-md text-lg font-medium transition-colors ${
                     isActive(link.href)
                       ? 'text-green-600 bg-green-50'
                       : 'text-gray-700 hover:text-green-600 hover:bg-green-50'

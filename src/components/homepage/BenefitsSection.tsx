@@ -30,11 +30,11 @@ const BenefitsSection = () => {
   return (
     <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-white">
       <div className="w-full max-w-7xl mx-auto">
-        <div className="text-center mb-6 sm:mb-8 lg:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
             มาวัดแล้วได้อะไร?
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-2">
+          <p className="text-lg sm:text-xl text-gray-600 px-2">
             ค้นพบประโยชน์และความหมายที่ท่านจะได้รับจากการมาวัดป่าสุญญตา
           </p>
         </div>
@@ -49,10 +49,10 @@ const BenefitsSection = () => {
                     <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3 sm:mb-4">
                       <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-green-600" />
                     </div>
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3">
                       {benefit.title}
                     </h3>
-                    <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
+                    <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                       {benefit.description}
                     </p>
                   </div>

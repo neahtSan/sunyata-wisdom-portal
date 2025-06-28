@@ -94,22 +94,22 @@ const FeaturedGallery = () => {
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
                       <Eye className="w-6 h-6 sm:w-8 sm:h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
-                    <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-xs sm:text-sm">
+                    <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-sm">
                       {album.photoCount} ภาพ
                     </div>
                   </div>
                   <CardContent className="p-3 sm:p-4 flex flex-col h-full">
-                    <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 line-clamp-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 line-clamp-2">
                       {album.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-600 mb-3 line-clamp-2 flex-grow">
+                    <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2 flex-grow">
                       {album.description}
                     </p>
                     <div className="flex justify-between items-center mt-auto">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-sm text-gray-500">
                         {formatDate(album.date)}
                       </span>
-                      <span className="text-green-600 hover:text-green-700 text-xs sm:text-sm font-medium">
+                      <span className="text-green-600 hover:text-green-700 text-sm font-medium">
                         ดูทั้งหมด
                       </span>
                     </div>
