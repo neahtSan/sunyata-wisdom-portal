@@ -69,7 +69,7 @@ const NewsSection = () => {
                     {item.category}
                   </span>
                 </div>
-                <CardTitle className="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-tight">
+                <CardTitle className="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-tight overflow-hidden text-ellipsis line-clamp-2">
                   {item.title}
                 </CardTitle>
               </CardHeader>
