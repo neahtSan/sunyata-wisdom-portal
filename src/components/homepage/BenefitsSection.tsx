@@ -24,16 +24,11 @@ const BenefitsSection = () => {
       icon: Star,
       title: 'พัฒนาจิตใจ',
       description: 'ฝึกสมาธิและพัฒนาคุณภาพชีวิตให้ดีขึ้น'
-    },
-    {
-      icon: Activity,
-      title: 'กิจกรรมหลากหลาย',
-      description: 'เข้าร่วมกิจกรรมธรรมะและงานบุญต่างๆ'
     }
   ];
 
   return (
-    <section className="w-full py-8 sm:py-12 lg:py-16 px-3 sm:px-4 lg:px-6 bg-white">
+    <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-white">
       <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-6 sm:mb-8 lg:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
@@ -44,7 +39,7 @@ const BenefitsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
           {benefits.map((benefit, index) => {
             const IconComponent = benefit.icon;
             return (

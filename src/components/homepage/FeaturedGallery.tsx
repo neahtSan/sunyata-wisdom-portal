@@ -56,7 +56,7 @@ const FeaturedGallery = () => {
   };
 
   return (
-    <section className="w-full py-8 sm:py-12 lg:py-16 px-3 sm:px-4 lg:px-6 bg-gray-50">
+    <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-gray-50">
       <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-6 sm:mb-8 lg:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">

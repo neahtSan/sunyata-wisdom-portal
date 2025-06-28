@@ -5,7 +5,7 @@ import HeroSection from '@/components/HeroSection';
 
 const WelcomeMessage = () => {
   return (
-    <section className="w-full py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6">
+    <section className="w-full py-4 sm:py-6 lg:py-8 px-2 sm:px-4 lg:px-6">
       <div className="w-full max-w-7xl mx-auto">
         {/* Hero Section with Carousel */}
         <div className="mb-6 sm:mb-8 lg:mb-12">

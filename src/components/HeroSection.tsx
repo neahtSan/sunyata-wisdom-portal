@@ -86,7 +86,7 @@ const HeroSection = () => {
   }, [emblaApi]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-8">
+    <div className="w-full max-w-4xl mx-auto px-2 sm:px-4 py-4 sm:py-8">
       <div className="relative w-full h-[260px] sm:h-[300px] md:h-[390px] overflow-hidden bg-gray-100 rounded-2xl shadow-lg">
         <div className="embla" ref={emblaRef}>
           <div className="embla__container flex">

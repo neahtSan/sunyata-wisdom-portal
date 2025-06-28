@@ -61,8 +61,8 @@ const UpcomingEvents = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-white">
+      <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
             กิจกรรมที่จะมาถึง

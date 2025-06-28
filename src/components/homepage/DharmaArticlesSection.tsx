@@ -47,7 +47,7 @@ const DharmaArticlesSection = () => {
   ];
 
   return (
-    <section className="w-full py-8 sm:py-12 lg:py-16 px-3 sm:px-4 lg:px-6 bg-gradient-to-b from-green-50 to-blue-50">
+    <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-gradient-to-b from-green-50 to-blue-50">
       <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-6 sm:mb-8 lg:mb-12">
           <div className="flex items-center justify-center mb-3 sm:mb-4">

@@ -35,7 +35,7 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="w-full min-h-screen">
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Index />} />
