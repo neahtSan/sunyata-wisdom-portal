@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Calendar, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -60,7 +61,8 @@ const NewsSection = () => {
   };
 
   return (
-    <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-gray-50">
+    <TooltipProvider>
+      <section className="w-full py-8 sm:py-12 lg:py-16 px-2 sm:px-4 lg:px-6 bg-gray-50">
       <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-6 sm:mb-8 lg:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
@@ -82,26 +84,34 @@ const NewsSection = () => {
               }`}
             >
               <CardHeader className="pb-3 sm:pb-4 flex-shrink-0">
-                <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-2">
+                <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
                   <div className="flex items-center">
                     <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                     <span>{formatDate(item.date)}</span>
                   </div>
-                  <span className="hidden sm:inline">•</span>
+                </div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <CardTitle className="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-normal line-clamp-2 cursor-pointer">
+                      {item.title}
+                    </CardTitle>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs p-2">
+                    <p className="text-sm">{item.title}</p>
+                  </TooltipContent>
+                </Tooltip>
+                <div>
                   <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm font-medium">
                     {item.category}
                   </span>
                 </div>
-                <CardTitle className="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-tight overflow-hidden text-ellipsis line-clamp-2">
-                  {item.title}
-                </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 flex-grow flex flex-col">
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 sm:mb-6 flex-grow">
+              <CardContent className="pt-0 flex flex-col flex-grow">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 flex-grow line-clamp-3 overflow-hidden">
                   {item.summary}
                 </p>
                 <Link to={`/dharma/${item.id}`} className="mt-auto">
-                  <Button variant="outline" className="w-full text-sm sm:text-base py-2 sm:py-3">
+                  <Button variant="outline" className="w-full text-sm py-2">
                     อ่านต่อ
                   </Button>
                 </Link>
@@ -119,6 +129,7 @@ const NewsSection = () => {
         </div>
       </div>
     </section>
+    </TooltipProvider>
   );
 };
 
