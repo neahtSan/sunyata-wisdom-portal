@@ -31,6 +31,22 @@ const NewsSection = () => {
       date: '2024-01-05',
       category: 'กิจกรรม',
       featured: true
+    },
+    {
+      id: 4,
+      title: 'บรรยายธรรมพิเศษ "ชีวิตในยุคดิจิทัล"',
+      summary: 'การบรรยายธรรมพิเศษเกี่ยวกับการใช้ชีวิตอย่างมีสติในยุคเทคโนโลยี โดยพระอาจารย์ที่มีประสบการณ์',
+      date: '2024-01-12',
+      category: 'บรรยายธรรม',
+      featured: true
+    },
+    {
+      id: 5,
+      title: 'งานแห่เทียนพรรษา ประจำปี 2567',
+      summary: 'ขอเชิญร่วมงานแห่เทียนพรรษาประจำปี พร้อมกิจกรรมวัฒนธรรมไทยและการแสดงพื้นบ้าน',
+      date: '2024-01-15',
+      category: 'งานประเพณี',
+      featured: true
     }
   ];
 
@@ -55,9 +71,16 @@ const NewsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-          {news.map((item, index) => (
-            <Card key={item.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {news.slice(0, 4).map((item, index) => (
+            <Card 
+              key={item.id} 
+              className={`border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col ${
+                index >= 1 ? 'hidden sm:block' : ''
+              } ${
+                index >= 2 ? 'hidden lg:block' : ''
+              }`}
+            >
               <CardHeader className="pb-3 sm:pb-4 flex-shrink-0">
                 <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-2">
                   <div className="flex items-center">

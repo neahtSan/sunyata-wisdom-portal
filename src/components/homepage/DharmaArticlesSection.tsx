@@ -61,17 +61,15 @@ const DharmaArticlesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {latestArticles.map((article, index) => (
             <Link 
               key={article.id} 
               to={`/dharma/${article.id}`}
               className={`block h-full ${
-                index >= 1 ? 'hidden md:block' : ''
+                index >= 1 ? 'hidden sm:block' : ''
               } ${
                 index >= 2 ? 'hidden lg:block' : ''
-              } ${
-                index >= 4 ? 'hidden' : ''
               }`}
             >
               <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full flex flex-col">
