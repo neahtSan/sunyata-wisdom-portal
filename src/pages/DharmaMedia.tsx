@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { Search, Filter, Calendar, User, Tag, Eye } from 'lucide-react';
@@ -87,8 +86,10 @@ const DharmaMedia = () => {
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
       <Navigation />
       
-      {/* Header Section */}
-      <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
+      {/* Main content with padding to compensate for fixed navigation on mobile */}
+      <div className="pt-16 md:pt-0">
+        {/* Header Section */}
+        <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">ธรรมะมีเดีย</h1>
@@ -219,6 +220,7 @@ const DharmaMedia = () => {
       </div>
 
       <Footer />
+      </div>
     </div>
   );
 };

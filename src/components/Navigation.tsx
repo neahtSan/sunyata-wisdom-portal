@@ -22,8 +22,22 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav 
+      className="bg-white shadow-lg fixed-nav-mobile z-50 w-full m-0 border-0"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        margin: 0,
+        padding: 0,
+        border: 0,
+        width: '100vw',
+        minWidth: '100%',
+        zIndex: 50
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ width: '100%' }}>
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
