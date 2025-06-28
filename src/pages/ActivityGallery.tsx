@@ -1,348 +1,305 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, X, ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
 import FallbackImage from '@/components/ui/fallback-image';
+import { Calendar, ArrowLeft, Filter, Users, Clock, MapPin } from 'lucide-react';
 
 const ActivityGallery = () => {
-  const { activityId } = useParams();
-  const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [selectedYear, setSelectedYear] = useState('all');
 
-  // Scroll to top when component mounts
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  // Sample activity data - in real app, this would come from API/database
-  const activityData = {
-    1: {
-      title: 'ปฏิบัติธรรมประจำสัปดาห์',
-      date: '20 มกราคม 2024',
-      description: 'กิจกรรมปฏิบัติธรรมประจำสัปดาห์ที่ศาลาหลัก มีผู้เข้าร่วม 25 คน',
-      images: Array.from({ length: 30 }, (_, i) => ({
-        id: i + 1,
-        src: `https://images.unsplash.com/photo-${[
-          '1544376664-80b17f09d399',
-          '1506905925346-21bda4d32df4',
-          '1518709268805-4e9042af2176',
-          '1545158181-d602ec04fcbb',
-          '1558618666-fcd25c85cd64',
-          '1507003211169-0a1dd7228f2d',
-          '1472396961693-142e6e269027',
-          '1433086966358-54859d0ed716',
-          '1465146344425-f00d5f5c8f07',
-          '1482938289607-e9573fc25ebb',
-          '1509316975850-ff9c5deb0cd9',
-          '1513836279014-a89f7a76ae86',
-          '1518495973542-4542c06a5843',
-          '1469474968028-56623f02e42e',
-          '1470813740244-df37b8c1edcb',
-          '1493225255560-251e4d9af746',
-          '1502809737437-974c6494bce7',
-          '1571019613454-1cb2f99b2d8b',
-          '1573496359142-b8d87734a5a2',
-          '1559027615-cd4628902d4a',
-          '1516589178581-6cd7833ae3b2',
-          '1515787366009-7f4ca9f20851',
-          '1573883341598-b4e143734d86',
-          '1506905925346-21bda4d32df4',
-          '1548199973-03cce0bbc87b',
-          '1571813934158-d0efaabea83d',
-          '1506905925346-21bda4d32df5',
-          '1544551763-46a013bb70d5',
-          '1573165231977-d8d24cf204b8',
-          '1506905368073-1fb1ebace6b4'
-        ][i]}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&sig=${i}`,
-        caption: `ภาพกิจกรรม ${i + 1}`,
-        description: `บรรยากาศการปฏิบัติธรรมภายในงาน ภาพที่ ${i + 1}`
-      }))
+  // Activities data from homepage UpcomingEvents component
+  const allActivities = [
+    {
+      id: 1,
+      title: 'วันพระ - สวดมนต์เช้า',
+      date: '15 มกราคม 2567',
+      year: '2567',
+      month: 'มกราคม',
+      time: '06:00',
+      location: 'วิหารใหญ่',
+      participants: 'ทุกท่าน',
+      category: 'พิธีกรรม',
+      description: 'พิธีสวดมนต์เช้าและนั่งสมาธิร่วมกัน',
+      images: [
+        "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      ]
     },
-    2: {
-      title: 'อบรมสมาธิเข้มข้น',
-      date: '25 มกราคม 2024',
-      description: 'โปรแกรมอบรมสมาธิเข้มข้น มีผู้เข้าร่วม 15 คน',
-      images: Array.from({ length: 28 }, (_, i) => ({
-        id: i + 31,
-        src: `https://images.unsplash.com/photo-${[
-          '1544376664-80b17f09d399',
-          '1506905925346-21bda4d32df4',
-          '1518709268805-4e9042af2176',
-          '1545158181-d602ec04fcbb',
-          '1558618666-fcd25c85cd64',
-          '1507003211169-0a1dd7228f2d',
-          '1472396961693-142e6e269027',
-          '1433086966358-54859d0ed716',
-          '1465146344425-f00d5f5c8f07',
-          '1482938289607-e9573fc25ebb',
-          '1509316975850-ff9c5deb0cd9',
-          '1513836279014-a89f7a76ae86',
-          '1518495973542-4542c06a5843',
-          '1469474968028-56623f02e42e',
-          '1470813740244-df37b8c1edcb',
-          '1493225255560-251e4d9af746',
-          '1502809737437-974c6494bce7',
-          '1571019613454-1cb2f99b2d8b',
-          '1573496359142-b8d87734a5a2',
-          '1559027615-cd4628902d4a',
-          '1516589178581-6cd7833ae3b2',
-          '1515787366009-7f4ca9f20851',
-          '1573883341598-b4e143734d86',
-          '1548199973-03cce0bbc87b',
-          '1571813934158-d0efaabea83d',
-          '1544551763-46a013bb70d5',
-          '1573165231977-d8d24cf204b8',
-          '1506905368073-1fb1ebace6b4'
-        ][i]}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&sig=${i + 31}`,
-        caption: `ภาพอบรม ${i + 1}`,
-        description: `บรรยากาศการอบรมสมาธิ ภาพที่ ${i + 1}`
-      }))
+    {
+      id: 2,
+      title: 'การเรียนรู้ปฏิบัติธรรมสำหรับผู้เริ่มต้น',
+      date: '18 มกราคม 2567',
+      year: '2567',
+      month: 'มกราคม',
+      time: '09:00',
+      location: 'ศาลาการเปรียญ',
+      participants: 'ผู้สนใจ',
+      category: 'ปฏิบัติธรรม',
+      description: 'หลักสูตรเบื้องต้นสำหรับผู้ที่ต้องการเริ่มต้นปฏิบัติธรรม',
+      images: [
+        "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      ]
     },
-    3: {
-      title: 'บรรยายธรรมพิเศษ',
-      date: '15 มกราคม 2024',
-      description: 'การบรรยายธรรมพิเศษ มีผู้เข้าร่วม 45 คน',
-      images: Array.from({ length: 32 }, (_, i) => ({
-        id: i + 61,
-        src: `https://images.unsplash.com/photo-${[
-          '1472396961693-142e6e269027',
-          '1433086966358-54859d0ed716',
-          '1465146344425-f00d5f5c8f07',
-          '1482938289607-e9573fc25ebb',
-          '1509316975850-ff9c5deb0cd9',
-          '1513836279014-a89f7a76ae86',
-          '1518495973542-4542c06a5843',
-          '1469474968028-56623f02e42e',
-          '1470813740244-df37b8c1edcb',
-          '1493225255560-251e4d9af746',
-          '1502809737437-974c6494bce7',
-          '1571019613454-1cb2f99b2d8b',
-          '1573496359142-b8d87734a5a2',
-          '1559027615-cd4628902d4a',
-          '1516589178581-6cd7833ae3b2',
-          '1515787366009-7f4ca9f20851',
-          '1573883341598-b4e143734d86',
-          '1548199973-03cce0bbc87b',
-          '1571813934158-d0efaabea83d',
-          '1544551763-46a013bb70d5',
-          '1573165231977-d8d24cf204b8',
-          '1506905368073-1fb1ebace6b4',
-          '1544376664-80b17f09d399',
-          '1506905925346-21bda4d32df4',
-          '1518709268805-4e9042af2176',
-          '1545158181-d602ec04fcbb',
-          '1558618666-fcd25c85cd64',
-          '1507003211169-0a1dd7228f2d',
-          '1571813934158-d0efaabea83e',
-          '1544551763-46a013bb70d6',
-          '1573165231977-d8d24cf204b9',
-          '1506905368073-1fb1ebace6b5'
-        ][i]}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&sig=${i + 61}`,
-        caption: `ภาพบรรยาย ${i + 1}`,
-        description: `บรรยากาศการบรรยายธรรม ภาพที่ ${i + 1}`
-      }))
+    {
+      id: 3,
+      title: 'ปฏิบัติธรรมค้างคืน',
+      date: '22 มกราคม 2567',
+      year: '2567',
+      month: 'มกราคม',
+      time: '17:00',
+      location: 'กุฏิปฏิบัติธรรม',
+      participants: 'จำกัด 20 ท่าน',
+      category: 'ปฏิบัติธรรม',
+      description: 'โปรแกรมปฏิบัติธรรมค้างคืน 2 วัน 1 คืน',
+      images: [
+        "https://images.unsplash.com/photo-1545158181-d602ec04fcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      ]
+    },
+    {
+      id: 4,
+      title: 'วันวิสาขบูชา - พิธีเวียนเทียน',
+      date: '25 มกราคม 2567',
+      year: '2567',
+      month: 'มกราคม',
+      time: '19:00',
+      location: 'รอบวิหารใหญ่',
+      participants: 'ทุกท่าน',
+      category: 'พิธีกรรม',
+      description: 'พิธีเวียนเทียนเนื่องในวันวิสาขบูชา',
+      images: [
+        "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      ]
     }
+  ];
+
+  const categories = ['all', 'ปฏิบัติธรรม', 'พิธีกรรม', 'บรรยาย', 'งานบุญ'];
+  const years = ['all', '2567', '2566'];
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('th-TH', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   };
 
-  const activity = activityData[Number(activityId) as keyof typeof activityData];
-
-  const openPhoto = (photoId: number) => {
-    setSelectedPhoto(photoId);
+  const formatTime = (timeString: string) => {
+    return `${timeString} น.`;
   };
 
-  const handleImageClick = (photoId: number, event: React.MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-    openPhoto(photoId);
-  };
+  // Filter activities
+  const filteredActivities = allActivities.filter(activity => {
+    const categoryMatch = selectedFilter === 'all' || activity.category === selectedFilter;
+    const yearMatch = selectedYear === 'all' || activity.year === selectedYear;
+    return categoryMatch && yearMatch;
+  });
 
-  const closePhoto = useCallback(() => {
-    setSelectedPhoto(null);
-  }, []);
-
-  const navigatePhoto = useCallback((direction: 'prev' | 'next') => {
-    if (selectedPhoto === null || !activity) return;
-    
-    const currentIndex = activity.images.findIndex(photo => photo.id === selectedPhoto);
-    let newIndex;
-    
-    if (direction === 'prev') {
-      newIndex = currentIndex > 0 ? currentIndex - 1 : activity.images.length - 1;
-    } else {
-      newIndex = currentIndex < activity.images.length - 1 ? currentIndex + 1 : 0;
+  // Group activities by year and month
+  const groupedActivities = filteredActivities.reduce((acc, activity) => {
+    const key = `${activity.year}-${activity.month}`;
+    if (!acc[key]) {
+      acc[key] = {
+        year: activity.year,
+        month: activity.month,
+        activities: []
+      };
     }
-    
-    setSelectedPhoto(activity.images[newIndex].id);
-  }, [selectedPhoto, activity]);
-
-  // Keyboard navigation for lightbox
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (selectedPhoto === null) return;
-      
-      switch (event.key) {
-        case 'Escape':
-          closePhoto();
-          break;
-        case 'ArrowLeft':
-          navigatePhoto('prev');
-          break;
-        case 'ArrowRight':
-          navigatePhoto('next');
-          break;
-      }
-    };
-
-    if (selectedPhoto !== null) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedPhoto, closePhoto, navigatePhoto]);
-
-  if (!activity) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">ไม่พบกิจกรรมที่ต้องการ</h1>
-          <Link to="/">
-            <Button>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              กลับไปหน้าจัดการกิจกรรม
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const selectedPhotoData = activity.images.find(photo => photo.id === selectedPhoto);
+    acc[key].activities.push(activity);
+    return acc;
+  }, {} as Record<string, { year: string; month: string; activities: typeof allActivities }>);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <Link to="/">
-              <Button variant="outline">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                กลับไปหน้าจัดการกิจกรรม
-              </Button>
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
+      <Navigation />
+      
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">กิจกรรมของวัด</h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+              ร่วมเป็นส่วนหนึ่งของกิจกรรมธรรมะและการปฏิบัติต่างๆ
+            </p>
+            <Link
+              to="/"
+              className="inline-flex items-center text-white hover:text-green-200 transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5 mr-2" />
+              กลับสู่หน้าแรก
             </Link>
-            <div className="text-right">
-              <h1 className="text-2xl font-bold text-gray-800">{activity.title}</h1>
-              <p className="text-gray-600">{activity.date}</p>
-            </div>
-          </div>
-          <div className="mt-4">
-            <p className="text-gray-700">{activity.description}</p>
-            <p className="text-sm text-gray-500 mt-2">รูปภาพทั้งหมด: {activity.images.length} รูป</p>
           </div>
         </div>
       </div>
 
-      {/* Gallery Grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-          {activity.images.map((photo, index) => (
-            <div
-              key={photo.id}
-              className="relative group overflow-hidden rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 bg-white"
-              style={{
-                animationDelay: `${index * 50}ms`,
-                animationFillMode: 'forwards'
-              }}
-            >
-              <FallbackImage
-                src={photo.src}
-                alt={photo.caption}
-                className="w-full h-[220px] sm:h-[240px] md:h-[260px] object-cover group-hover:scale-110 transition-all duration-500 ease-out rounded-xl"
-                loading="lazy"
-                skeletonClassName="rounded-xl"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-200 flex items-center justify-center rounded-xl pointer-events-none">
-                <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <p className="text-sm font-medium text-center px-2">{photo.caption}</p>
+      {/* Filter Section */}
+      <div className="py-8 bg-white shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            {/* Category Filter */}
+            <div className="flex items-center space-x-2">
+              <Filter className="w-5 h-5 text-gray-600" />
+              <select
+                value={selectedFilter}
+                onChange={(e) => setSelectedFilter(e.target.value)}
+                className="px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+              >
+                <option value="all">ประเภทกิจกรรมทั้งหมด</option>
+                {categories.slice(1).map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Year Filter */}
+            <div className="flex items-center space-x-2">
+              <Calendar className="w-5 h-5 text-gray-600" />
+              <select
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+                className="px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+              >
+                <option value="all">ปีทั้งหมด</option>
+                {years.slice(1).map(year => (
+                  <option key={year} value={year}>พ.ศ. {year}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Activities List */}
+      <div className="py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {Object.values(groupedActivities).length > 0 ? (
+            Object.values(groupedActivities).map((group) => (
+              <div key={`${group.year}-${group.month}`} className="mb-12">
+                <div className="flex items-center mb-6">
+                  <Calendar className="w-8 h-8 text-green-600 mr-3" />
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-800">{group.month} พ.ศ. {group.year}</h2>
+                    <p className="text-gray-600">{group.activities.length} กิจกรรม</p>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {group.activities.map((activity) => (
+                    <div
+                      key={activity.id}
+                      className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border-l-4 border-l-green-500"
+                    >
+                      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 p-6">
+                        {/* Activity Image */}
+                        <div className="lg:col-span-1">
+                          <FallbackImage
+                            src={activity.images[0]}
+                            alt={activity.title}
+                            className="w-full h-48 lg:h-full object-cover rounded-lg"
+                            loading="lazy"
+                          />
+                        </div>
+
+                        {/* Activity Details */}
+                        <div className="lg:col-span-2 space-y-4">
+                          <div>
+                            <h3 className="text-xl font-bold text-gray-800 mb-2">
+                              {activity.title}
+                            </h3>
+                            <p className="text-gray-600 leading-relaxed">
+                              {activity.description}
+                            </p>
+                          </div>
+                          
+                          <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <div className="flex items-center space-x-2">
+                                <Calendar className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                <div>
+                                  <div className="text-xs text-gray-500">วันที่</div>
+                                  <div className="text-sm font-medium text-gray-800">
+                                    {formatDate(activity.date)}
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center space-x-2">
+                                <Clock className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                <div>
+                                  <div className="text-xs text-gray-500">เวลา</div>
+                                  <div className="text-sm font-medium text-gray-800">
+                                    {formatTime(activity.time)}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <div className="flex items-center space-x-2">
+                                <MapPin className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                <div>
+                                  <div className="text-xs text-gray-500">สถานที่</div>
+                                  <div className="text-sm font-medium text-gray-800">
+                                    {activity.location}
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center space-x-2">
+                                <Users className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                <div>
+                                  <div className="text-xs text-gray-500">ผู้เข้าร่วม</div>
+                                  <div className="text-sm font-medium text-gray-800">
+                                    {activity.participants}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Action Buttons */}
+                        <div className="lg:col-span-1 flex flex-col gap-3 justify-start">
+                          <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium text-center">
+                            {activity.category}
+                          </span>
+                          
+                          <Link
+                            to="/registration"
+                            className="bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 text-center"
+                          >
+                            สมัครเข้าร่วม
+                          </Link>
+                          
+                          <Link
+                            to={`/gallery?album=${activity.id}`}
+                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-medium transition-colors duration-200 text-center"
+                          >
+                            ดูภาพกิจกรรม
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              
-              {/* Invisible click overlay to ensure clicks work */}
-              <div 
-                className="absolute inset-0 z-10 cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  openPhoto(photo.id);
-                }}
-              />
+            ))
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-xl text-gray-600">ไม่พบกิจกรรมที่ตรงกับการค้นหา</p>
+              <p className="text-gray-500 mt-2">ลองเปลี่ยนตัวกรองหรือเลือกปีอื่น</p>
             </div>
-          ))}
+          )}
         </div>
       </div>
 
-      {/* Lightbox Modal */}
-      {selectedPhoto && selectedPhotoData && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
-          onClick={closePhoto}
-        >
-          <div 
-            className="relative max-w-4xl max-h-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={closePhoto}
-              className="absolute -top-4 -right-4 bg-black bg-opacity-40 hover:bg-opacity-60 text-white p-2 rounded-full transition-all duration-200 z-30 backdrop-blur-sm"
-              aria-label="ปิด"
-            >
-              <X className="w-8 h-8" />
-            </button>
-
-            {/* Navigation Buttons */}
-            <button
-              onClick={() => navigatePhoto('prev')}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-40 hover:bg-opacity-60 text-white p-3 rounded-full transition-all duration-200 z-20 backdrop-blur-sm"
-              aria-label="ภาพก่อนหน้า"
-            >
-              <ChevronLeft className="w-8 h-8" />
-            </button>
-
-            <button
-              onClick={() => navigatePhoto('next')}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-40 hover:bg-opacity-60 text-white p-3 rounded-full transition-all duration-200 z-20 backdrop-blur-sm"
-              aria-label="ภาพถัดไป"
-            >
-              <ChevronRight className="w-8 h-8" />
-            </button>
-
-            {/* Image */}
-            <div className="w-full max-w-2xl mx-auto">
-              <div className="aspect-[4/3] w-full">
-                <FallbackImage
-                  src={selectedPhotoData.src}
-                  alt={selectedPhotoData.caption}
-                  className="w-full h-full object-cover rounded-lg shadow-2xl"
-                  loading="eager"
-                  skeletonClassName="rounded-lg"
-                  showSkeleton={true}
-                />
-              </div>
-            </div>
-
-            {/* Caption */}
-            <div className="text-center text-white mt-4">
-              <h3 className="text-2xl font-bold mb-2">{selectedPhotoData.caption}</h3>
-              <p className="text-lg opacity-90">{selectedPhotoData.description}</p>
-            </div>
-          </div>
-        </div>
-      )}
+      <Footer />
     </div>
   );
 };

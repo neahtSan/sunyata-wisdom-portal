@@ -50,7 +50,7 @@ const PhotoGallery = () => {
   const hasMoreActivities = photoTimeline.flatMap(timeline => timeline.photos).length > 4;
 
   const navigateToActivityGallery = (activityId: number) => {
-    navigate(`/activity/${activityId}`);
+    navigate(`/gallery?album=${activityId}`);
   };
 
   return (

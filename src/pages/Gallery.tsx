@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import FallbackImage from '@/components/ui/fallback-image';
@@ -9,6 +9,8 @@ import { Calendar, ArrowLeft, Filter, Users } from 'lucide-react';
 const Gallery = () => {
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedYear, setSelectedYear] = useState('all');
+  const [searchParams] = useSearchParams();
+  const selectedAlbum = searchParams.get('album');
 
   // Sample activities data organized by timeline
   const allActivities = [
@@ -106,6 +108,57 @@ const Gallery = () => {
     acc[key].activities.push(activity);
     return acc;
   }, {} as Record<string, { year: string; month: string; activities: typeof allActivities }>);
+
+  // If a specific album is selected, show only that album
+  if (selectedAlbum) {
+    const albumActivity = allActivities.find(a => a.id.toString() === selectedAlbum);
+    if (albumActivity) {
+      return (
+        <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
+          <Navigation />
+          
+          {/* Header Section */}
+          <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">{albumActivity.title}</h1>
+                <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                  {albumActivity.description}
+                </p>
+                <Link
+                  to="/gallery"
+                  className="inline-flex items-center text-white hover:text-green-200 transition-colors"
+                >
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  กลับสู่แกลเลอรี่
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Album Images */}
+          <div className="py-12">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {albumActivity.images.map((image, index) => (
+                  <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <FallbackImage
+                      src={image}
+                      alt={`${albumActivity.title} - รูปที่ ${index + 1}`}
+                      className="w-full h-64 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <Footer />
+        </div>
+      );
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
@@ -228,7 +281,7 @@ const Gallery = () => {
                         </div>
 
                         <Link
-                          to={`/activity/${activity.id}`}
+                          to={`/gallery?album=${activity.id}`}
                           className="block w-full mt-4 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 text-center"
                         >
                           ดูแกลเลอรี่เต็ม
