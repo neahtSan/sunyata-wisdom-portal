@@ -1,5 +1,3 @@
-
-import React from 'react';
 import Navigation from '../components/Navigation';
 import WelcomeMessage from '../components/homepage/WelcomeMessage';
 import BenefitsSection from '../components/homepage/BenefitsSection';
@@ -14,26 +12,32 @@ const Index = () => {
     <div className="w-full min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
       <Navigation />
       
-      {/* สุญญตาสวัสดี - Welcoming message */}
-      <WelcomeMessage />
+      {/* Spacer for fixed navigation on mobile */}
+      <div className="h-16 md:h-0"></div>
       
-      {/* มาวัดแล้วได้อะไร? - Benefits section */}
-      <BenefitsSection />
-      
-      {/* บทความธรรมะล่าสุด - Latest dharma articles */}
-      <DharmaArticlesSection />
-      
-      {/* ข่าวประชาสัมพันธ์ - Latest news */}
-      <NewsSection />
-      
-      {/* กิจกรรมที่จะมาถึง - Upcoming events */}
-      <UpcomingEvents />
-      
-      {/* คลังภาพล่าสุด - Featured gallery */}
-      <FeaturedGallery />
-      
-      {/* Footer with shortcuts and contact */}
-      <Footer />
+      {/* Main content */}
+      <div>
+        {/* สุญญตาสวัสดี - Welcoming message */}
+        <WelcomeMessage />
+        
+        {/* มาวัดแล้วได้อะไร? - Benefits section */}
+        <BenefitsSection />
+        
+        {/* บทความธรรมะล่าสุด - Latest dharma articles */}
+        <DharmaArticlesSection />
+        
+        {/* ข่าวประชาสัมพันธ์ - Latest news */}
+        <NewsSection />
+        
+        {/* กิจกรรมที่จะมาถึง - Upcoming events */}
+        <UpcomingEvents />
+        
+        {/* คลังภาพล่าสุด - Featured gallery */}
+        <FeaturedGallery />
+        
+        {/* Footer with shortcuts and contact */}
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,10 +9,6 @@ import {
   Calendar, 
   Users, 
   MessageSquare, 
-  Info,
-  TrendingUp,
-  Eye,
-  FileText,
   Plus,
   Clock
 } from 'lucide-react';
