@@ -33,24 +33,24 @@ const BenefitsSection = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8 sm:mb-12">
+    <section className="w-full py-8 sm:py-12 lg:py-16 px-3 sm:px-4 lg:px-6 bg-white">
+      <div className="w-full max-w-7xl mx-auto">
+        <div className="text-center mb-6 sm:mb-8 lg:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
             มาวัดแล้วได้อะไร?
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-2">
             ค้นพบประโยชน์และความหมายที่ท่านจะได้รับจากการมาวัดป่าสุญญตา
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
           {benefits.map((benefit, index) => {
             const IconComponent = benefit.icon;
             return (
-              <Card key={index} className="border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:shadow-lg">
-                <CardContent className="p-4 sm:p-6 lg:p-8 text-center">
-                  <div className="mb-4 sm:mb-6">
+              <Card key={index} className="border-2 border-green-100 hover:border-green-300 transition-all duration-300 hover:shadow-lg h-full">
+                <CardContent className="p-4 sm:p-6 text-center h-full flex flex-col">
+                  <div className="flex-grow">
                     <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3 sm:mb-4">
                       <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-green-600" />
                     </div>

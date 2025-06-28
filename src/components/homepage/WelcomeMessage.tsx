@@ -5,19 +5,19 @@ import HeroSection from '@/components/HeroSection';
 
 const WelcomeMessage = () => {
   return (
-    <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+    <section className="w-full py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6">
+      <div className="w-full max-w-7xl mx-auto">
         {/* Hero Section with Carousel */}
-        <div className="mb-8 sm:mb-12">
+        <div className="mb-6 sm:mb-8 lg:mb-12">
           <HeroSection />
         </div>
 
         {/* Welcome Message Card */}
-        <Card className="border-0 bg-white/80 backdrop-blur-sm shadow-lg">
-          <CardContent className="p-6 sm:p-8 lg:p-12">
-            <div className="text-center space-y-4 sm:space-y-6">
+        <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg w-full">
+          <CardContent className="p-4 sm:p-6 lg:p-8">
+            <div className="text-center space-y-3 sm:space-y-4 lg:space-y-6">
               {/* Main welcome heading */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-green-800 leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-green-800 leading-tight">
                 สุญญตาสวัสดี
               </h1>
               
@@ -27,7 +27,7 @@ const WelcomeMessage = () => {
               </h2>
               
               {/* Welcome message */}
-              <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4">
+              <div className="w-full space-y-3 sm:space-y-4">
                 <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed">
                   สถานที่แห่งความสงบและการเรียนรู้ธรรมะ ท่ามกลางธรรมชาติอันร่มรื่น
                 </p>
@@ -39,7 +39,7 @@ const WelcomeMessage = () => {
               </div>
               
               {/* Temple motto */}
-              <div className="pt-4 sm:pt-6 border-t border-green-200">
+              <div className="pt-3 sm:pt-4 lg:pt-6 border-t border-green-200">
                 <p className="text-base sm:text-lg md:text-xl text-green-700 font-semibold italic">
                   "ความว่างเปล่าคือความเต็มเปี่ยม ความสงบคือความสุข"
                 </p>

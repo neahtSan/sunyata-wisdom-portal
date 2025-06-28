@@ -47,21 +47,21 @@ const DharmaArticlesSection = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-blue-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8 sm:mb-12">
+    <section className="w-full py-8 sm:py-12 lg:py-16 px-3 sm:px-4 lg:px-6 bg-gradient-to-b from-green-50 to-blue-50">
+      <div className="w-full max-w-7xl mx-auto">
+        <div className="text-center mb-6 sm:mb-8 lg:mb-12">
           <div className="flex items-center justify-center mb-3 sm:mb-4">
             <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 mr-2 sm:mr-3" />
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
               บทความธรรมะล่าสุด
             </h2>
           </div>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-4">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-2">
             ศึกษาธรรมะและแนวทางการปฏิบัติเพื่อชีวิตที่มีความสุข
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {latestArticles.map((article) => (
             <Link 
               key={article.id} 
@@ -83,7 +83,7 @@ const DharmaArticlesSection = () => {
                 </div>
                 
                 <CardContent className="p-3 sm:p-4 flex flex-col flex-grow">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3 group-hover:text-green-600 transition-colors leading-snug overflow-hidden text-ellipsis line-clamp-2 h-[2.5rem] sm:h-[3rem]">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 sm:mb-3 group-hover:text-green-600 transition-colors leading-snug overflow-hidden text-ellipsis line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">
                     {article.title}
                   </h3>
                   
@@ -126,7 +126,7 @@ const DharmaArticlesSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-8 sm:mt-12">
+        <div className="text-center mt-6 sm:mt-8 lg:mt-12">
           <Link to="/dharma">
             <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4">
               ดูบทความธรรมะทั้งหมด

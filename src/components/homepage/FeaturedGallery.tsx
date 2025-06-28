@@ -56,13 +56,13 @@ const FeaturedGallery = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8 sm:mb-12">
+    <section className="w-full py-8 sm:py-12 lg:py-16 px-3 sm:px-4 lg:px-6 bg-gray-50">
+      <div className="w-full max-w-7xl mx-auto">
+        <div className="text-center mb-6 sm:mb-8 lg:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
             คลังภาพล่าสุด
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-4">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 px-2">
             ชมภาพบรรยากาศและกิจกรรมต่างๆ ของวัดป่าสุญญตา
           </p>
         </div>
@@ -73,7 +73,7 @@ const FeaturedGallery = () => {
             <p className="text-lg sm:text-xl text-gray-600">ยังไม่มีภาพที่แสดง</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {featuredAlbums.map((album) => (
               <Link 
                 key={album.id} 
@@ -120,7 +120,7 @@ const FeaturedGallery = () => {
           </div>
         )}
 
-        <div className="text-center mt-8 sm:mt-12">
+        <div className="text-center mt-6 sm:mt-8 lg:mt-12">
           <Link to="/gallery">
             <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4">
               ดูคลังภาพทั้งหมด
