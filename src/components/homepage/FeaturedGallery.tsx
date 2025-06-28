@@ -73,19 +73,23 @@ const FeaturedGallery = () => {
             <p className="text-base sm:text-lg text-gray-600">ยังไม่มีภาพที่แสดง</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {featuredAlbums.map((album) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {featuredAlbums.slice(0, 4).map((album, index) => (
               <Link 
                 key={album.id} 
                 to={`/gallery?album=${album.id}`}
-                className="block"
+                className={`block ${
+                  index >= 1 ? 'hidden sm:block' : ''
+                } ${
+                  index >= 2 ? 'hidden lg:block' : ''
+                }`}
               >
-                <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full flex flex-col">
                   <div className="relative overflow-hidden rounded-t-lg">
                     <img
                       src={album.coverImage}
                       alt={album.title}
-                      className="w-full h-36 sm:h-44 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/placeholder.svg';
@@ -98,19 +102,16 @@ const FeaturedGallery = () => {
                       {album.photoCount} ภาพ
                     </div>
                   </div>
-                  <CardContent className="p-3 sm:p-4 flex flex-col h-full">
-                    <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 line-clamp-2">
+                  <CardContent className="p-3 sm:p-4 flex flex-col flex-grow">
+                    <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-3 line-clamp-2 min-h-[3rem] overflow-hidden">
                       {album.title}
                     </h3>
-                    <p className="text-sm sm:text-base text-gray-600 mb-3 line-clamp-2 flex-grow">
+                    <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2 flex-grow overflow-hidden leading-relaxed">
                       {album.description}
                     </p>
-                    <div className="flex justify-between items-center mt-auto">
+                    <div className="flex justify-between items-center mt-auto pt-2 border-t border-gray-100">
                       <span className="text-sm text-gray-500">
                         {formatDate(album.date)}
-                      </span>
-                      <span className="text-green-600 hover:text-green-700 text-sm font-medium">
-                        ดูทั้งหมด
                       </span>
                     </div>
                   </CardContent>
