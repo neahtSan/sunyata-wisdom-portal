@@ -95,10 +95,10 @@ const ArticleDetail = () => {
       <Navigation />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Back Link */}
+        {/* Back Link - Hidden on PC, visible on mobile */}
         <Link
-          to="/article"
-          className="inline-flex items-center text-green-600 hover:text-green-700 mb-6 transition-colors"
+          to="/dharma"
+          className="inline-flex items-center text-green-600 hover:text-green-700 mb-6 transition-colors lg:hidden"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
           กลับสู่หน้าบทความ

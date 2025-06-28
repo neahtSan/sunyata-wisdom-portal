@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Search, Filter, Calendar, User, Tag, Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const DharmaMedia = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,7 +87,8 @@ const DharmaMedia = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
+    <TooltipProvider>
+      <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50">
       <Navigation />
       
       {/* Main content with padding to compensate for fixed navigation on mobile */}
@@ -139,64 +144,78 @@ const DharmaMedia = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredArticles.map((article) => (
-              <div
-                key={article.id}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              <Link 
+                key={article.id} 
+                to={`/dharma/${article.id}`}
+                className="block h-full"
               >
-                <img
-                  src={article.coverImage}
-                  alt={article.title}
-                  className="w-full h-48 object-cover"
-                />
-                
-                <div className="p-6">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {article.tags.map(tag => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full"
-                      >
-                        <Tag className="w-3 h-3 inline mr-1" />
-                        {tag}
-                      </span>
-                    ))}
+                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full flex flex-col">
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <img
+                      src={article.coverImage}
+                      alt={article.title}
+                      className="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/placeholder.svg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
                   </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
-                    {article.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
-                    {article.excerpt}
-                  </p>
-
-                  {/* Article Meta */}
-                  <div className="space-y-2 text-sm text-gray-500 border-t pt-4">
-                    <div className="flex items-center">
-                      <User className="w-4 h-4 mr-2" />
-                      <span>{article.author}</span>
+                  
+                  <CardContent className="p-3 sm:p-4 flex flex-col flex-grow">
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {article.tags.map(tag => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
-                    <div className="flex items-center justify-between">
+
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 group-hover:text-green-600 transition-colors leading-snug overflow-hidden text-ellipsis line-clamp-2 min-h-[3rem]">
+                      {article.title}
+                    </h3>
+                    
+                    <p className="text-sm sm:text-base text-gray-600 mb-4 leading-relaxed flex-grow overflow-hidden text-ellipsis line-clamp-3">
+                      {article.excerpt}
+                    </p>
+                    
+                    {/* Article Date */}
+                    <div className="flex items-center text-sm text-gray-500 mb-4">
+                      <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
+                      <span className="truncate">{article.publishDate}</span>
+                    </div>
+                    
+                    {/* Read More Button */}
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full mb-4 border-green-500 text-green-600 hover:bg-green-50 text-sm py-2"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = `/dharma/${article.id}`;
+                      }}
+                    >
+                      อ่านต่อ
+                    </Button>
+                    
+                    <div className="space-y-2 text-sm text-gray-500 border-t pt-3 mt-auto">
                       <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        <span>{article.publishDate}</span>
+                        <User className="w-4 h-4 mr-1 flex-shrink-0" />
+                        <span className="truncate text-sm">{article.author}</span>
                       </div>
                       <div className="flex items-center">
-                        <Eye className="w-4 h-4 mr-1" />
-                        <span>{article.views.toLocaleString()}</span>
+                        <Eye className="w-4 h-4 mr-1 flex-shrink-0" />
+                        <span className="text-sm">{article.views.toLocaleString()} การเข้าชม</span>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Read More Button */}
-                  <button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200">
-                    อ่านต่อ
-                  </button>
-                </div>
-              </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
 
@@ -222,6 +241,7 @@ const DharmaMedia = () => {
       <Footer />
       </div>
     </div>
+    </TooltipProvider>
   );
 };
 
