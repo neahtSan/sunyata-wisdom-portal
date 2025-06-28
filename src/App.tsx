@@ -1,6 +1,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from '@/components/ui/toaster';
+import ScrollToTop from '@/components/ScrollToTop';
 import Index from '@/pages/Index';
 import About from '@/pages/About';
 import DharmaMedia from '@/pages/DharmaMedia';
@@ -35,6 +36,7 @@ import './App.css';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="w-full min-h-screen">
         <Routes>
           {/* Public routes */}
