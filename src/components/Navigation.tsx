@@ -45,17 +45,17 @@ const Navigation = () => {
               <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold">วัด</span>
               </div>
-              <span className="text-xl sm:text-2xl font-bold text-gray-800">วัดป่าสุญญตา</span>
+              <span className="text-xl md:text-2xl lg:text-2xl font-bold text-gray-800">วัดป่าสุญญตา</span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                className={`px-3 py-2 rounded-md text-lg font-medium transition-colors ${
                   isActive(link.href)
                     ? 'text-green-600 bg-green-50'
                     : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
@@ -67,7 +67,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <Button
               variant="ghost"
               size="sm"
@@ -80,7 +80,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
               {navLinks.map((link) => (
                 <Link
