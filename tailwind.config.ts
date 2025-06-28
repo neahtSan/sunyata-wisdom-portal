@@ -1,5 +1,6 @@
 
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -24,14 +25,17 @@ export default {
 				'display': ['Kanit', 'system-ui', 'sans-serif'],
 			},
 			fontSize: {
-				'base': '18px', // Larger base font size for elderly users
-				'lg': '20px',
-				'xl': '22px',
-				'2xl': '26px',
-				'3xl': '30px',
-				'4xl': '36px',
-				'5xl': '48px',
-				'6xl': '60px',
+				// Optimized for Asian users aged 60+
+				'xs': ['16px', { lineHeight: '1.6' }],      // Minimum readable size
+				'sm': ['18px', { lineHeight: '1.6' }],      // Small text, metadata
+				'base': ['20px', { lineHeight: '1.7' }],    // Body text, default size
+				'lg': ['22px', { lineHeight: '1.7' }],      // Medium text
+				'xl': ['26px', { lineHeight: '1.6' }],      // Large text
+				'2xl': ['30px', { lineHeight: '1.5' }],     // Headings
+				'3xl': ['36px', { lineHeight: '1.4' }],     // Large headings
+				'4xl': ['42px', { lineHeight: '1.3' }],     // Main headings
+				'5xl': ['52px', { lineHeight: '1.2' }],     // Hero headings
+				'6xl': ['64px', { lineHeight: '1.1' }],     // Display headings
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -105,7 +109,7 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
 			}
-		}
-	},
-	plugins: [require("tailwindcss-animate")],
+		},
+		plugins: [tailwindcssAnimate],
+	}
 } satisfies Config;

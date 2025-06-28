@@ -4,8 +4,8 @@ import { MapPin, Phone, Mail, Facebook, Youtube, Clock } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="w-full bg-gray-800 text-white py-8 sm:py-12">
+      <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Temple Information */}
           <div>
@@ -14,11 +14,11 @@ const Footer = () => {
                 <span className="text-white font-bold text-xl">วัด</span>
               </div>
               <div>
-                <h3 className="text-2xl font-bold">วัดป่าสุญญตา</h3>
-                <p className="text-gray-400">ความสงบในธรรมชาติ</p>
+                <h3 className="text-xl sm:text-2xl font-bold">วัดป่าสุญญตา</h3>
+                <p className="text-gray-400 text-base sm:text-lg">ความสงบในธรรมชาติ</p>
               </div>
             </div>
-            <p className="text-gray-300 text-lg leading-relaxed">
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
               วัดป่าสุญญตาเป็นสถานที่ศักดิ์สิทธิ์สำหรับการปฏิบัติธรรมและหาความสงบใจ 
               ท่ามกลางธรรมชาติที่ร่มรื่น
             </p>

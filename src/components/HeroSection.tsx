@@ -86,7 +86,7 @@ const HeroSection = () => {
   }, [emblaApi]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-8">
+    <div className="w-full max-w-4xl mx-auto px-2 sm:px-4 py-4 sm:py-8">
       <div className="relative w-full h-[260px] sm:h-[300px] md:h-[390px] overflow-hidden bg-gray-100 rounded-2xl shadow-lg">
         <div className="embla" ref={emblaRef}>
           <div className="embla__container flex">
@@ -104,10 +104,10 @@ const HeroSection = () => {
                 {/* Overlay Content */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-white px-4">
-                    <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 drop-shadow-lg">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg">
                       วัดป่าสุญญตา
                     </h1>
-                    <p className="text-sm md:text-lg lg:text-xl mb-4 md:mb-6 drop-shadow-lg">
+                    <p className="text-base sm:text-lg lg:text-xl mb-6 drop-shadow-lg">
                       {image.caption}
                     </p>
                   </div>
